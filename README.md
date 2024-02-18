@@ -7,6 +7,16 @@
     <p style="color:#353535">Este es el proyecto final para la clase de desarrollo de aplicaciones web. Este proyecto se trata de una aplicación de creación y visualización de recetas de comida</p>
 </div>
 
+<div>
+    <h2>Developers de este proyecto</h2>
+    <ul>
+        <li>Isabel Denisse Aguilar Vílchez (@denisseaguilar)🌸 </li>
+        <li>Carlos Eduardo Chavarría Centeno (@EdCenten0)♿ </li>
+        <li>Francisco de Jesús Meléndez Simplina (@FranciscoMelen10)⚽ </li>
+        <li>Ana Marbell Zepeda Almendarez (@marbell04)🐈‍⬛ </li>
+    </ul>
+</div>
+
 
   <h4>Techs on this project:</h4>
     <div style="display:flex; flex-direction:row; width:100%;">
