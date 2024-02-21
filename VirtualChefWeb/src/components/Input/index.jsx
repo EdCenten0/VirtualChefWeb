@@ -18,7 +18,7 @@ const styles = {
     fontSize: "0.7rem",
     margin: 0,
     position: "absolute",
-    bottom: 25,
+    top: -6,
     left: 10,
     backgroundColor: "white",
     fontWeight: 200,
@@ -26,6 +26,7 @@ const styles = {
   input: {
     margin: 0,
     outline: "black",
+    width: "100%",
     border: "1px solid #000",
     borderRadius: "5px",
     padding: ".4rem 1rem .4rem .4rem ",
@@ -39,7 +40,7 @@ const Input = ({ name, placeholder }) => {
     <>
       <div style={styles.container}>
         <p style={styles.text}>{name}</p>
-        <input placeholder={placeholder} style={styles.input}></input>
+        <input placeholder={placeholder} style={styles.input} />
       </div>
 
       <style>

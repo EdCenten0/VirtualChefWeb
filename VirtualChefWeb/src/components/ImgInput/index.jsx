@@ -11,7 +11,7 @@ const styles = {
     borderRadius: "32px",
     backgroundColor: "#c7c7c7",
     width: "100%",
-    height: "8rem",
+    height: "15rem",
     cursor: "pointer",
   },
   placeholder: {
