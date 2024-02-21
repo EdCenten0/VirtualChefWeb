@@ -1,4 +1,4 @@
-import CrearReceta1 from "./CrearReceta/CrearReceta1";
+import CrearReceta1 from "./CrearReceta/index";
 
 function App() {
   return (
