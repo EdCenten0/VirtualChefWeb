@@ -1,9 +1,9 @@
-import CrearReceta1 from "./CrearReceta/index";
+import Login from "./Login/index";
 
 function App() {
   return (
     <>
-      <CrearReceta1 />
+      <Login />
     </>
   );
 }

@@ -8,39 +8,17 @@
 // y asi hacer que el componente solamente necesite estar dentro de una etiqueta padre que va a ser la que determine el tamaño del componente
 // Yap, eso es todo, espero que te sirva, saludos!
 
-const styles = {
-  container: {
-    position: "relative",
-    margin: "1rem 0",
-  },
-  text: {
-    padding: "0 1rem 0 1px",
-    fontSize: "0.7rem",
-    margin: 0,
-    position: "absolute",
-    top: -6,
-    left: 10,
-    backgroundColor: "white",
-    fontWeight: 200,
-  },
-  input: {
-    margin: 0,
-    outline: "black",
-    width: "100%",
-    border: "1px solid #000",
-    borderRadius: "5px",
-    padding: ".4rem 1rem .4rem .4rem ",
-    color: "black",
-    fontWeight: 300,
-  },
-};
-
 const Input = ({ name, placeholder }) => {
   return (
     <>
-      <div style={styles.container}>
-        <p style={styles.text}>{name}</p>
-        <input placeholder={placeholder} style={styles.input} />
+      <div className="relative my-[1rem]">
+        <p className="py-0 px-1 m-0 absolute -top-[12px] left-[10px] bg-white font-extralight text-[0.9rem]">
+          {name}
+        </p>
+        <input
+          placeholder={placeholder}
+          className="m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem]"
+        ></input>
       </div>
 
       <style>
