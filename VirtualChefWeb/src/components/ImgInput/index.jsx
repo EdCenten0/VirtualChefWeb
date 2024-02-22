@@ -29,13 +29,14 @@ const styles = {
     right: 0,
     width: "100%",
     height: "100%",
+    cursor: "pointer",
   },
 };
 
 const ImgInput = () => {
   return (
     <>
-      <div style={styles.container}>
+      <div style={styles.container} className=''>
         <input style={styles.input} type='file' />
         <img style={styles.placeholder} src={cross} alt='cross' />
       </div>
