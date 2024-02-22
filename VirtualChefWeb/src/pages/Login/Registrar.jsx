@@ -6,7 +6,7 @@ import Logo from "../../assets/Logo.svg";
 const Registar = () => {
   return (
     <>
-      <div className=" gap-5 flex flex-col items-center justify-center p-14">
+      <div className=" gap-5 h-screen flex flex-col items-center justify-center p-14">
         <img src={Logo} className="size-[250px]" />
         <form className="w-[500px]">
           <div className="mb-5">
