@@ -8,25 +8,37 @@
 // y asi hacer que el componente solamente necesite estar dentro de una etiqueta padre que va a ser la que determine el tamaño del componente
 // Yap, eso es todo, espero que te sirva, saludos!
 
-const Input = ({ name, placeholder }) => {
+import cross from "./cross-green.svg";
+
+const Input = ({ name, placeholder, addIcon }) => {
+  const renderAddIcon = () => {
+    if (addIcon) {
+      return (
+        <>
+          <div className='w-12 h-full flex items-center justify-center bg-white border border-black'>
+            <img className='rotate-45 w-7' src={cross} alt='cross' />
+          </div>
+        </>
+      );
+    }
+  };
+
   return (
     <>
-      <div className="relative my-[1rem]">
-        <p className="py-0 px-1 m-0 absolute -top-[12px] left-[10px] bg-white font-extralight text-[0.9rem]">
-          {name}
-        </p>
-        <input
-          placeholder={placeholder}
-          className="m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem]"
-        ></input>
+      <div className='relative my-[1rem] flex gap-3 items-center'>
+        <div className='w-full'>
+          <p
+            className={`py-0 px-1 m-0 absolute -top-[12px] left-[10px] bg-white font-extralight text-[0.9rem] rounded-[5px]`}
+          >
+            {name}
+          </p>
+          <input
+            placeholder={placeholder}
+            className='m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem] placeholder:text-gray-400 placeholder:font-thin'
+          />
+        </div>
+        <div className='h-full'>{renderAddIcon()}</div>
       </div>
-
-      <style>
-        {` ::placeholder { 
-                color: gray; 
-                font-weight: 200;
-            }`}
-      </style>
     </>
   );
 };
