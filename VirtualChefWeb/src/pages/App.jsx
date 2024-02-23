@@ -8,7 +8,7 @@ function App() {
   const AppRoutes = () => {
     let routes = useRoutes([
       {
-        path: "/login",
+        path: "/",
         element: <Login />,
       },
       { path: "/favoritos", element: <Login /> },

@@ -2,6 +2,8 @@
 import InputCom from "../../components/Input";
 import ButtonCom from "../../components/Button";
 import Logo from "../../assets/Logo.svg";
+import { NavLink } from "react-router-dom";
+
 
 const Login = () => {
   return (
@@ -15,12 +17,12 @@ const Login = () => {
           </div>
           <div className="text-center">
             <ButtonCom text={"Iniciar sesión"}></ButtonCom>
-            <a
-              href="/"
+            <NavLink
+              to="/registrar"
               className="text-[#246C2C] text-[20px] mt-[5px] leading-10 underline"
             >
               Crear cuenta
-            </a>
+            </NavLink>
           </div>
         </form>
       </div>

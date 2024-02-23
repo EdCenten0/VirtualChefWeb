@@ -2,7 +2,7 @@
 import Header from "../../components/Header/index";
 import InputIcon from "../../components/Input/InputIcon";
 import SearchIcon from "../../assets/search.jpg";
-import CarruselComidas from "../../components/carrusel/CarruselComidas";
+import CarruselComidas from "../../components/Carrusel/CarruselComidas";
 
 function Menu_Principal() {
   return (
