@@ -61,7 +61,11 @@ const CrearReceta2 = () => {
           <HeaderText text={"Agrega una receta"} />
           <div className='grid grid-cols-2 gap-10'>
             <div className='flex justify-center flex-col gap-8'>
-              <Input />
+              <Input
+                name={"Ingrediente"}
+                placeholder={"Chiltoma con tomate"}
+                addIcon={true}
+              />
               <ControladorPasos paso={2} />
               <Button text={"Siguiente"} />
             </div>
@@ -69,11 +73,11 @@ const CrearReceta2 = () => {
             <div>
               <HeaderText text={"Ingredientes"} />
               <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                <Input />
-                <Input />
-                <Input />
-                <Input />
-                <Input />
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
               </div>
             </div>
           </div>
@@ -83,4 +87,38 @@ const CrearReceta2 = () => {
   );
 };
 
-export { CrearReceta1, CrearReceta2 };
+const CrearReceta3 = () => {
+  return (
+    <>
+      <main className='m-10'>
+        <div className='mx-4 my-2'>
+          <HeaderText text={"Agrega una receta"} />
+          <div className='grid grid-cols-2 gap-10'>
+            <div className='flex justify-center flex-col gap-8'>
+              <Input
+                name={"Pasos"}
+                placeholder={"Hornear 10 minutos"}
+                addIcon={true}
+              />
+              <ControladorPasos paso={3} />
+              <Button text={"Siguiente"} />
+            </div>
+
+            <div>
+              <HeaderText text={"Pasos"} />
+              <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
+                <Input deleteIcon={true} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+};
+
+export { CrearReceta1, CrearReceta2, CrearReceta3 };
