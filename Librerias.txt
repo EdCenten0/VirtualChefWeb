@@ -1,0 +1,2 @@
+1) Swiper:
+npm i swiper

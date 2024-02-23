@@ -3,7 +3,7 @@ import InputCom from "../../components/Input";
 import ButtonCom from "../../components/Button";
 import Logo from "../../assets/Logo.svg";
 
-const Registar = () => {
+const Registrar = () => {
   return (
     <>
       <div className=" gap-5 h-screen flex flex-col items-center justify-center p-14">
@@ -24,4 +24,4 @@ const Registar = () => {
   );
 };
 
-export default Registar;
+export default Registrar;
