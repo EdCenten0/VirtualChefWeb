@@ -19,6 +19,7 @@ const styles = {
     margin: 0,
     outline: "black",
     width: "100%",
+    height: "10rem",
     border: "1px solid #000",
     borderRadius: "5px",
     padding: ".4rem 1rem .4rem .4rem ",
