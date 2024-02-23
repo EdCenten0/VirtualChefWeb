@@ -1,5 +1,6 @@
-import Corazon from "../../assets/Corazon.svg";
+// import Corazon from "../../assets/Corazon.svg";
 import Reloj from "../../assets/Reloj.svg";
+import Corazon from '../Icons/Corazon'
 
 export default function CardComidas({ name, time, imagen }) {
   return (
@@ -17,7 +18,7 @@ export default function CardComidas({ name, time, imagen }) {
             <h6>{time + " minutos"}</h6>
           </label>
         </article>
-        <img src={Corazon} alt="Icon de corazon"></img>
+        <Corazon></Corazon>
       </section>
     </div>
   );
