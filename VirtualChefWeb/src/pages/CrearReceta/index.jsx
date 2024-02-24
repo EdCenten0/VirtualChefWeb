@@ -11,6 +11,7 @@ import ImgInput from "../../components/ImgInput";
 import Select from "../../components/Select";
 import TextArea from "../../components/TextArea";
 import ControladorPasos from "../../components/ControladorPasos";
+import TarjetasAgregados from "../../components/TarjetasAgregados";
 
 const CrearReceta1 = () => {
   return (
@@ -73,11 +74,12 @@ const CrearReceta2 = () => {
             <div>
               <HeaderText text={"Ingredientes"} />
               <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
               </div>
             </div>
           </div>
@@ -107,11 +109,12 @@ const CrearReceta3 = () => {
             <div>
               <HeaderText text={"Pasos"} />
               <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
-                <Input deleteIcon={true} />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
               </div>
             </div>
           </div>
