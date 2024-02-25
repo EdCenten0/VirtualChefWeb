@@ -3,7 +3,7 @@ import "./index.css";
 
 const ProfileCard = ({ nombre, descripcion, link, imgUrl, pattern }) => {
   return (
-    <div className='hover:scale-110 transition-all'>
+    <div className='hover:scale-110 transition-all border'>
       <div className='card'>
         <div className='card__img'>
           <div className={`pattern${pattern}`}></div>

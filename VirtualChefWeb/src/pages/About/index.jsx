@@ -12,7 +12,7 @@ const About = () => {
       </div>
 
       <main className='flex justify-center items-center flex-col m-10'>
-        <section className='bg-slate-100 w-[100vw] p-10 '>
+        <section className='bg-slate-100 w-[99vw] p-10 '>
           <div className='w-full'>
             <h2 className='text-center font-bold text-xl my-4'>
               ¿Qué es Virtual Chef?
@@ -24,7 +24,7 @@ const About = () => {
             </p>
           </div>
         </section>
-        <section className='bg-slate-200 w-[100vw] pb-20'>
+        <section className=' bg-slate-200 w-[99vw] pb-20'>
           <div className=''>
             <h2 className='text-center font-bold text-xl my-4'>
               ¿Quiénes somos?
