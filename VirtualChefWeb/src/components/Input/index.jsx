@@ -1,4 +1,4 @@
-import cross from "./cross-green.svg";
+import cross from "./../../assets/cross-green.svg";
 
 const Input = ({
   name,
@@ -34,7 +34,7 @@ const Input = ({
             {name}
           </p>
           <input
-            {...register(name, { required: isRequired })}
+            {...register(name, { required: isRequired, maxLength: 1 })}
             placeholder={placeholder}
             className='m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem] placeholder:text-gray-400 placeholder:font-thin'
           />

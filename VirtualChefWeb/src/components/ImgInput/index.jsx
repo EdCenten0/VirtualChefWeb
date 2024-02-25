@@ -1,5 +1,5 @@
 import React from "react";
-import cross from "./cross.svg";
+import cross from "./../../assets/cross.svg";
 
 const styles = {
   container: {
