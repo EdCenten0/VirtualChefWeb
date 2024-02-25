@@ -1,6 +1,13 @@
 import cross from "./cross-green.svg";
 
-const Input = ({ name, placeholder, addIcon }) => {
+const Input = ({
+  name,
+  placeholder,
+  addIcon,
+  register,
+  isRequired,
+  errors,
+}) => {
   const renderAddIcon = () => {
     if (addIcon) {
       return (
@@ -27,10 +34,17 @@ const Input = ({ name, placeholder, addIcon }) => {
             {name}
           </p>
           <input
+            {...register(name, { required: isRequired })}
             placeholder={placeholder}
             className='m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem] placeholder:text-gray-400 placeholder:font-thin'
           />
+          {errors[name] && (
+            <span className='text-red-600 text-xl'>
+              Este campo es requerido
+            </span>
+          )}
         </div>
+
         {renderAddIcon()}
       </div>
     </>

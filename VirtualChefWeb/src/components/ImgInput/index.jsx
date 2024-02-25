@@ -33,13 +33,20 @@ const styles = {
   },
 };
 
-const ImgInput = () => {
+const ImgInput = ({ register, isRequired, errors }) => {
   return (
     <>
       <div style={styles.container} className=''>
-        <input style={styles.input} type='file' />
+        <input
+          {...register("img", { required: isRequired })}
+          style={styles.input}
+          type='file'
+        />
         <img style={styles.placeholder} src={cross} alt='cross' />
       </div>
+      {errors.img && (
+        <span className='text-red-600 text-xl'>Este campo es requerido</span>
+      )}
     </>
   );
 };

@@ -28,13 +28,21 @@ const styles = {
   },
 };
 
-const TextArea = ({ name, placeholder }) => {
+const TextArea = ({ name, placeholder, register, isRequired, errors }) => {
+  console.log(errors);
   return (
     <>
       <div style={styles.container}>
         <p style={styles.text}>{name}</p>
-        <textarea style={styles.textArea} placeholder={placeholder} />
+        <textarea
+          {...register(name, { required: isRequired })}
+          style={styles.textArea}
+          placeholder={placeholder}
+        />
       </div>
+      {errors[name] && (
+        <span className='text-red-600 text-xl'>Este campo es requerido</span>
+      )}
 
       <style>
         {` ::placeholder { 
