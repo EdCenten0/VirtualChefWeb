@@ -5,13 +5,14 @@ import Login from "./Login/index";
 import NotFound from "./Not_Found/Not_Found";
 import Menu_Principal from "./Menu_Principal";
 import About from "./About";
+import Favoritos from "./Favoritos/index"
 
 function App() {
   const AppRoutes = () => {
     let routes = useRoutes([
       { path: "*", element: <NotFound /> },
       { path: "/", element: <Login /> },
-      { path: "/favoritos", element: <Login /> },
+      { path: "/favoritos", element: <Favoritos /> },
       { path: "/registrar", element: <Registrar /> },
       { path: "/home", element: <Menu_Principal /> },
       { path: "/crearReceta1", element: <CrearReceta1 /> },
