@@ -97,7 +97,7 @@ const Footer = () => {
           icon={SearchIcon}
           placeholder={"Buscar recetas..."}
         ></InputIcon>
-        <div className="grid grid-cols-3 my-10 gap-y-12">
+        <div className="grid grid-cols-3 my-10 gap-y-12 gap-x-8">
           {DATA.map((info) => {
             return (
               <CardFavoritos
@@ -109,6 +109,8 @@ const Footer = () => {
             );
           })}
         </div>
+      </div>
+      <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white ">
       </div>
     </main>
   );
