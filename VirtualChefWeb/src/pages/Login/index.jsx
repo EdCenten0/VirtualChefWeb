@@ -1,25 +1,40 @@
 // import React from "react";
 import InputCom from "../../components/Input";
 import ButtonCom from "../../components/Button";
+import { useForm } from "react-hook-form";
 import Logo from "../../assets/Logo.svg";
 import { NavLink } from "react-router-dom";
 
-
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <>
-      <div className="w-screen h-screen gap-3 flex flex-col items-center justify-center ">
-        <img src={Logo} className="size-[250px]" />
-        <form className="w-[500px]">
-          <div className="mb-5">
-            <InputCom name={"Nombre de usuario"}></InputCom>
-            <InputCom name={"Contraseña"}></InputCom>
+      <div className='w-screen h-screen gap-3 flex flex-col items-center justify-center '>
+        <img src={Logo} className='size-[250px]' />
+        <form className='w-[500px]'>
+          <div className='mb-5'>
+            <InputCom
+              register={register}
+              isRequired={true}
+              errors={errors}
+              name={"Nombre de usuario"}
+            ></InputCom>
+            <InputCom
+              register={register}
+              isRequired={true}
+              errors={errors}
+              name={"Contraseña"}
+            ></InputCom>
           </div>
-          <div className="text-center">
+          <div className='text-center'>
             <ButtonCom text={"Iniciar sesión"}></ButtonCom>
             <NavLink
-              to="/registrar"
-              className="text-[#246C2C] text-[20px] mt-[5px] leading-10 underline"
+              to='/registrar'
+              className='text-[#246C2C] text-[20px] mt-[5px] leading-10 underline'
             >
               Crear cuenta
             </NavLink>
