@@ -9,8 +9,8 @@ const records = await pb.collection("users").getFullList({});
 //  password: admin123456
 
 const adminData = await pb.admins.authWithPassword(
-  "cchavarriacenteno8@gmail.com",
-  "dsadasdasd"
+  "admin@gmail.com",
+  "admin123456"
 );
 
 export { pb, records };
