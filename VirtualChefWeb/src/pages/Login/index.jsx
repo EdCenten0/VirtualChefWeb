@@ -4,7 +4,7 @@ import ButtonCom from "../../components/Button";
 import { useForm } from "react-hook-form";
 import Logo from "../../assets/Logo.svg";
 import { NavLink } from "react-router-dom";
-import { pb, records } from "../../hooks/pocketBase";
+import { records } from "../../hooks/pocketBase";
 
 const Login = () => {
   const {
