@@ -3,10 +3,10 @@ import cross from "./../../assets/cross-green.svg";
 const Input = ({
   name,
   placeholder,
-  addIcon,
-  register,
-  isRequired,
-  errors,
+  addIcon = false,
+  register = () => {},
+  isRequired = false,
+  errors = {},
 }) => {
   const renderAddIcon = () => {
     if (addIcon) {
