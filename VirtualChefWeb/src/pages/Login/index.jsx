@@ -24,12 +24,14 @@ const Login = () => {
               isRequired={true}
               errors={errors}
               name={"Nombre de usuario"}
+              type={"text"}
             ></InputCom>
             <InputCom
               register={register}
               isRequired={true}
               errors={errors}
               name={"Contraseña"}
+              type={"password"}
             ></InputCom>
           </div>
           <div className='text-center'>

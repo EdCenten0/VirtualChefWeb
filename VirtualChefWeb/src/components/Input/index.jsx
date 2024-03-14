@@ -6,7 +6,8 @@ const Input = ({
   addIcon = false,
   register = () => {},
   isRequired = false,
-  errors = {},
+  errors,
+  type, 
 }) => {
   const renderAddIcon = () => {
     if (addIcon) {
@@ -24,6 +25,8 @@ const Input = ({
     }
   };
 
+  const replaceName = name.replace(/ /g, "_").toLowerCase();
+
   return (
     <>
       <div className='relative my-[1rem] flex gap-3 items-center'>
@@ -34,11 +37,13 @@ const Input = ({
             {name}
           </p>
           <input
-            {...register(name, { required: isRequired, minLength: 1 })}
+            {...register(replaceName, { required: isRequired, minLength: 10 })}
             placeholder={placeholder}
             className='m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem] placeholder:text-gray-400 placeholder:font-thin'
+            type={`${type}`}
+            
           />
-          {errors[name] && (
+          {errors[replaceName] && (
             <span className='text-red-600 text-xl'>
               Este campo es requerido
             </span>
