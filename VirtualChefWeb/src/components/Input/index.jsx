@@ -34,7 +34,7 @@ const Input = ({
             {name}
           </p>
           <input
-            {...register(name, { required: isRequired, maxLength: 1 })}
+            {...register(name, { required: isRequired, minLength: 1 })}
             placeholder={placeholder}
             className='m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem] placeholder:text-gray-400 placeholder:font-thin'
           />
