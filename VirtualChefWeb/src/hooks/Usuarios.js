@@ -2,6 +2,9 @@ import PocketBase from "pocketbase";
 
 const pb = new PocketBase("http://127.0.0.1:8090");
 
+// globally disable auto cancellation
+pb.autoCancellation(false);
+
 const ALL_USERS = await pb.collection("users").getFullList({});
 
 export async function createUser(data) {
@@ -26,4 +29,21 @@ export async function createUser(data) {
 
 }
 
-export { ALL_USERS };
+async function findUser(username, email) {
+    try {
+
+        // Buscar usuario y correo en la base de datos (funciona pero la contraseña no se puede comparar en la base de datos)
+        const user = await pb.collection("users").getFullList( {} ,{
+            filter : `username = "${username}" || email = "${email}"`,
+        });
+        console.log(user);
+
+        // Autenticacion de usuario (No funciona)
+        // const userData = await pb.collection('users').authWithPassword(username, password);
+        // console.log(userData);
+    } catch (error) {
+        alert(error);
+    }
+}
+
+export { ALL_USERS, findUser };
