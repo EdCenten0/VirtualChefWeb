@@ -2,7 +2,7 @@ import PocketBase from "pocketbase";
 
 const pb = new PocketBase("http://127.0.0.1:8090");
 
-const records = await pb.collection("users").getFullList({});
+const records = await pb.collection("recetas").getFullList({});
 
 //  Credenciales
 //  Correo: admin@gmail.com
