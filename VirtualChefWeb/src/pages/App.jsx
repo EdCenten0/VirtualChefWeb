@@ -5,7 +5,8 @@ import Login from "./Login/index";
 import NotFound from "./Not_Found/Not_Found";
 import Menu_Principal from "./Menu_Principal";
 import About from "./About";
-import Favoritos from "./Favoritos/index"
+import Favoritos from "./Favoritos/index";
+import VistaReceta from "./VIstaReceta";
 
 function App() {
   const AppRoutes = () => {
@@ -18,6 +19,7 @@ function App() {
       { path: "/crearReceta1", element: <CrearReceta1 /> },
       { path: "/crearReceta2", element: <CrearReceta2 /> },
       { path: "/crearReceta3", element: <CrearReceta3 /> },
+      { path: "/receta", element: <VistaReceta /> },
       { path: "/about", element: <About /> },
     ]);
 

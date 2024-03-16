@@ -46,7 +46,9 @@ const CrearReceta1 = () => {
                 />
                 <ControladorPasos paso={1} />
 
-                <Button text={"Siguiente"} />
+                <NavLink to={"/CrearReceta2"}>
+                  <Button text={"Siguiente"} />
+                </NavLink>
               </div>
 
               <div className='col-span-2 row-span-2'>
@@ -119,7 +121,10 @@ const CrearReceta2 = () => {
                   addIcon={true}
                 />
                 <ControladorPasos paso={2} />
-                <Button text={"Siguiente"} />
+
+                <NavLink to={"/CrearReceta3"}>
+                  <Button text={"Siguiente"} />
+                </NavLink>
               </div>
 
               <div>
