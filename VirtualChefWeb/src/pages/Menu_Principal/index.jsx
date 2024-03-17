@@ -7,6 +7,33 @@ import Pop_button from "../../components/Button/Pop_button";
 import Footer from "../../components/Footer/index";
 import IconCreate from "../../assets/Create-pencil.svg";
 
+import Ejemplo from "../../assets/Ejemplo.png";
+import Ejemplo2 from "../../assets/Ejemplo2.png";
+import Ejemplo3 from "../../assets/Ejemplo3.png";
+
+const FOODS_CONST = [
+  {
+    name: "Pollo frito",
+    time: "10",
+    img: Ejemplo,
+  },
+  {
+    name: "Ensalada Venezolana",
+    time: "10",
+    img: Ejemplo2,
+  },
+  {
+    name: "Ensalada Hondureña",
+    time: "10",
+    img: Ejemplo3,
+  },
+  {
+    name: "Pollo frito",
+    time: "10",
+    img: Ejemplo,
+  },
+];
+
 function Menu_Principal() {
   return (
     <>
@@ -22,13 +49,22 @@ function Menu_Principal() {
           ></InputIcon>
 
           {/* Componente de  Desayuno*/}
-          <CarruselComidas name={"Desayuno"}></CarruselComidas>
+          <CarruselComidas
+            name={"Desayuno"}
+            FOODS_CONST={FOODS_CONST}
+          ></CarruselComidas>
 
           {/* Componente de  Almuerzo*/}
-          <CarruselComidas name={"Almuerzo"}></CarruselComidas>
+          <CarruselComidas
+            name={"Almuerzo"}
+            FOODS_CONST={FOODS_CONST}
+          ></CarruselComidas>
 
           {/* Componente de  Cena*/}
-          <CarruselComidas name={"Cena"}></CarruselComidas>
+          <CarruselComidas
+            name={"Cena"}
+            FOODS_CONST={FOODS_CONST}
+          ></CarruselComidas>
 
           {/*Footer*/}
         </div>

@@ -8,47 +8,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-import Ejemplo from "../../assets/Ejemplo.png";
-import Ejemplo2 from "../../assets/Ejemplo2.png";
-import Ejemplo3 from "../../assets/Ejemplo3.png";
-
-
 import CardComidas from "../Card/CardComidas";
 
-const FOODS_CONST = [
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo2,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo3,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo2,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo3,
-  },
-];
-
-export default function CarruselComidas({ name }) {
+export default function CarruselComidas({ name, FOODS_CONST = []}) {
   return (
     <div className="my-[50px]">
       <h1 className="text-center text-[40px] font-light">{name}</h1>
