@@ -20,6 +20,10 @@ function useRecetas() {
     fetchRecetas();
   }, []);
 
+  async function adjuntarReceta(receta) {
+    setRecetas([...recetas, receta]);
+  }
+
   async function getRecetas() {
     const recetas = await pb
       .collection("recetas")
@@ -27,16 +31,23 @@ function useRecetas() {
     return recetas;
   }
 
+  async function searchReceta(idReceta) {
+    const receta = await pb
+      .collection("recetas")
+      .getOne(idReceta, { expand: ["horarioId, creador"] });
+    return receta;
+  }
+
   const createNewReceta = async (data) => {
     try {
       const receta = await pb.collection("recetas").create(data);
-      setRecetas([...recetas, receta]);
+      adjuntarReceta(receta);
     } catch (error) {
       setError(true);
     }
   };
 
-  return { recetas, loading, error, createNewReceta, getRecetas };
+  return { recetas, loading, error, createNewReceta, getRecetas, searchReceta };
 }
 
 export { useRecetas };
