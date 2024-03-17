@@ -11,16 +11,24 @@ const Registrar = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   const onSubmit = handleSubmit((data) => {
+    console.log(data);
     if (data.contraseña !== data.confirmar_contraseña) {
       alert("Las contraseñas no coinciden");
       return;
     }
 
     createUser(data);
-    alert("Usuario creado con exito");
-    window.location.href = "/";
+
+    setTimeout(() => {
+      if (confirm("Desea volver al inicio de sesión?")) {
+        location.href = "/";
+      }else{
+        window.location.reload();
+      }
+    }, 1000);
+
   });
 
   return (
