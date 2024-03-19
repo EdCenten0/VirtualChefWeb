@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { pb } from "./pocketBase";
+import { getHorario } from "../Horario";
+
+// globally disable auto cancellation
+pb.autoCancellation(false);
 
 function useRecetas() {
   const [recetas, setRecetas] = useState([]);
@@ -47,7 +51,15 @@ function useRecetas() {
     }
   };
 
-  return { recetas, loading, error, createNewReceta, getRecetas, searchReceta };
+  const getRecetasMenu = async (horario) => {
+    const tiempo = await getHorario(horario);
+    const recetasMenu = await pb
+      .collection("recetas")
+      .getFullList({ filter: `horarioId = "${tiempo[0].id}"` });
+    return recetasMenu;
+  } 
+
+  return { recetas, loading, error, createNewReceta, getRecetas, searchReceta, getRecetasMenu };
 }
 
 export { useRecetas };

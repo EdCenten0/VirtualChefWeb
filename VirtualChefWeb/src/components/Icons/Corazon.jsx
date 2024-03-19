@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Corazon.css";
+import "./corazon.css";
 
 function Corazon() {
   const [active, setActive] = useState(true);

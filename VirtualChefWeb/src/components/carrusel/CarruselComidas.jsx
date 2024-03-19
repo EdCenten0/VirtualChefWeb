@@ -1,33 +1,33 @@
 import { Navigation } from "swiper/modules";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import CardComidas from "../Card/CardComidas";
+import { getImagen } from "../../hooks/pocketBase/pocketBase";
 
-export default function CarruselComidas({ name, FOODS_CONST = []}) {
+export default function CarruselComidas({ name, comidas = [] }) {
   return (
     <div className="my-[50px]">
-      <h1 className="text-center text-[40px] font-light">{name}</h1>
+      <h1 className="text-center text-[40px] pb-5 font-sans font-thin">{name}</h1>
       <Swiper
         modules={[Navigation]}
         spaceBetween={50}
         slidesPerView={3}
         navigation
-        className="h-[320px] flex items-center w-full px-12 justify-center"
+        className="flex items-center w-full px-12 justify-evenly"
       >
-        {FOODS_CONST.map((info) => {
+        {comidas.map((info) => {
+          console.log(info);
           return (
-            <SwiperSlide className="size-[300px] " key={info.name}>
+            <SwiperSlide className="" key={info.id}>
               <CardComidas
-                name={info.name}
-                time={info.time}
-                imagen={info.img}
+                name={info.nombre}
+                time={info.tiempoPreparacion}
+                imagen={getImagen(info)}
               ></CardComidas>
             </SwiperSlide>
           );
