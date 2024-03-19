@@ -13,4 +13,9 @@ const adminData = await pb.admins.authWithPassword(
   "admin123456"
 );
 
-export { pb, records };
+
+function getImagen({ collectionId, id, imagen }) {
+  return `http://127.0.0.1:8090/api/files/${collectionId}/${id}/${imagen}`
+}
+
+export { pb, records, getImagen };
