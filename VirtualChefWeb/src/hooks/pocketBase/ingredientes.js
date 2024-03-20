@@ -26,7 +26,7 @@ function useIngredientes() {
     try {
       const ingredientes = await pb
         .collection("ingredientes")
-        .getFullList("recetasId=" + idReceta);
+        .getFullList({ filter: `recetasId = "${idReceta}"` });
       console.log("Console log desde useIngredientes");
       console.log(ingredientes);
       return ingredientes;

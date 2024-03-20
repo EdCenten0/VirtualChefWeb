@@ -28,7 +28,7 @@ function usePasos() {
     try {
       const pasos = await pb
         .collection("pasos")
-        .getFullList("recetasId=" + idReceta);
+        .getFullList({ filter: `recetaId = "${idReceta}"` });
       console.log("Console log desde usePasos");
       console.log(pasos);
       return pasos;
