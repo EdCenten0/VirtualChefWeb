@@ -6,8 +6,9 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Input from "../../components/Input";
+import InputAgregarElemento from "../../components/Input/InputAgregarElemento";
 import Button from "../../components/Button";
 import HeaderText from "../../components/HeaderText";
 import ImgInput from "../../components/ImgInput";
@@ -26,6 +27,7 @@ const CrearReceta1 = () => {
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
+    location.href = "/CrearReceta2";
   });
 
   return (
@@ -45,10 +47,9 @@ const CrearReceta1 = () => {
                   isRequired={true}
                 />
                 <ControladorPasos paso={1} />
-
-                <NavLink to={"/CrearReceta2"}>
+                <Link to={"/CrearReceta2"}>
                   <Button text={"Siguiente"} />
-                </NavLink>
+                </Link>
               </div>
 
               <div className='col-span-2 row-span-2'>
@@ -56,7 +57,7 @@ const CrearReceta1 = () => {
                   errors={errors}
                   isRequired={true}
                   register={register}
-                  name={"Nombre".toLowerCase()}
+                  name={"Nombre"}
                   placeholder={"Nombre de la receta"}
                 />
 
@@ -64,7 +65,7 @@ const CrearReceta1 = () => {
                   errors={errors}
                   isRequired={true}
                   register={register}
-                  name={"Descripcion".toLowerCase()}
+                  name={"Descripcion"}
                   placeholder={"Agrega una descripcion"}
                 />
 
@@ -76,8 +77,10 @@ const CrearReceta1 = () => {
                         errors={errors}
                         isRequired={true}
                         register={register}
-                        name={"Tiempo".toLowerCase()}
+                        name={"Tiempo"}
                         placeholder={"10 minutos"}
+                        type='number'
+                        minLength={1}
                       />
                       <p className='flex justify-center items-center'>
                         Minutos....
@@ -105,7 +108,12 @@ const CrearReceta1 = () => {
 };
 
 const CrearReceta2 = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   return (
     <>
       <CrearRecetaProvider>
@@ -114,7 +122,8 @@ const CrearReceta2 = () => {
             <HeaderText text={"Agrega una receta"} />
             <div className='grid grid-cols-2 gap-10'>
               <div className='flex justify-center flex-col gap-8'>
-                <Input
+                <InputAgregarElemento
+                  errors={errors}
                   register={register}
                   name={"Ingrediente"}
                   placeholder={"Chiltoma con tomate"}
@@ -147,7 +156,11 @@ const CrearReceta2 = () => {
 };
 
 const CrearReceta3 = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <>
       <CrearRecetaProvider>
@@ -161,6 +174,7 @@ const CrearReceta3 = () => {
                   name={"Pasos"}
                   placeholder={"Hornear 10 minutos"}
                   addIcon={true}
+                  errors={errors}
                 />
                 <ControladorPasos paso={3} />
                 <Button text={"Siguiente"} />
