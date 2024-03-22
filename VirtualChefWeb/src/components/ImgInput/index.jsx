@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import cross from "./../../assets/cross.svg";
+import { set } from "react-hook-form";
 
 const styles = {
   container: {
@@ -11,14 +12,13 @@ const styles = {
     borderRadius: "32px",
     backgroundColor: "#c7c7c7",
     width: "100%",
-    height: "15rem",
+    height: "45vh",
     cursor: "pointer",
   },
   placeholder: {
     position: "absolute",
     pointerEvents: "none",
     width: "3rem",
-    transform: "rotate(45deg)",
   },
   input: {
     opacity: "0.0",
@@ -31,9 +31,22 @@ const styles = {
     height: "100%",
     cursor: "pointer",
   },
+  img: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: "32px",
+  },
 };
 
 const ImgInput = ({ register, isRequired, errors }) => {
+  const [image, setImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(URL.createObjectURL(file));
+  };
+
   return (
     <>
       <div style={styles.container} className=''>
@@ -41,8 +54,14 @@ const ImgInput = ({ register, isRequired, errors }) => {
           {...register("img", { required: isRequired })}
           style={styles.input}
           type='file'
+          accept='image/*'
+          onChange={handleImageChange}
         />
-        <img style={styles.placeholder} src={cross} alt='cross' />
+        <img
+          style={image == null ? styles.placeholder : styles.img}
+          src={image == null ? cross : image}
+          alt='cross'
+        />
       </div>
       {errors.img && (
         <span className='text-red-600 text-xl'>Este campo es requerido</span>
