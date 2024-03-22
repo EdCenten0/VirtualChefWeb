@@ -1,14 +1,16 @@
-const Input = ({
+import React from "react";
+import cross from "./../../assets/cross.svg";
+
+const InputAgregarElemento = ({
   name,
   placeholder,
   register = () => {},
   isRequired = false,
   errors,
   type = "text",
-  minLength = 10,
+  minLength = 5,
 }) => {
   const replaceName = name.replace(/ /g, "_").toLowerCase();
-
   return (
     <>
       <div className='relative my-[1rem] flex gap-3 items-center'>
@@ -33,9 +35,19 @@ const Input = ({
             </span>
           )}
         </div>
+        <div>
+          <button
+            className='flex items-center justify-center border border-black rounded-lg w-full'
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <img src={cross} alt='plus' />
+          </button>
+        </div>
       </div>
     </>
   );
 };
 
-export default Input;
+export default InputAgregarElemento;
