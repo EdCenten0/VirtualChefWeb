@@ -21,13 +21,13 @@ export default function CarruselComidas({ name, comidas = [] }) {
         className="flex items-center w-full px-12 justify-evenly"
       >
         {comidas.map((info) => {
-          console.log(info);
           return (
             <SwiperSlide className="" key={info.id}>
               <CardComidas
                 name={info.nombre}
                 time={info.tiempoPreparacion}
                 imagen={getImagen(info)}
+                id={info.id}
               ></CardComidas>
             </SwiperSlide>
           );
