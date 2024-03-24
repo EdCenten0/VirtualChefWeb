@@ -22,11 +22,13 @@ const Registrar = () => {
     createUser(data);
 
     // Si el usuario desea volver al inicio de sesión, se redirige a la página de inicio
-    if (confirm("Desea volver al inicio de sesión?")) {
-      location.href = "/";
-    } else {
-      window.location.reload();
-    }
+    setTimeout(() => {
+      if (confirm("Desea volver al inicio de sesión?")) {
+        location.href = "/";
+      } else {
+        window.location.reload();
+      }
+    }, 1000);
   });
 
   return (
