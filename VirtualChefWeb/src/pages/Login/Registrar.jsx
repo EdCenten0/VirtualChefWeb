@@ -3,7 +3,7 @@ import InputCom from "../../components/Input";
 import ButtonCom from "../../components/Button";
 import Logo from "../../assets/Logo.svg";
 import { useForm } from "react-hook-form";
-import { createUser } from "../../hooks/Usuarios";
+import { createUser } from "../../hooks/pocketBase/Usuarios";
 
 const Registrar = () => {
   const {
@@ -13,22 +13,20 @@ const Registrar = () => {
   } = useForm();
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     if (data.contraseña !== data.confirmar_contraseña) {
       alert("Las contraseñas no coinciden");
       return;
     }
 
+    // Llama a la función createUser del archivo Usuarios.js para crear un usuario
     createUser(data);
 
-    setTimeout(() => {
-      if (confirm("Desea volver al inicio de sesión?")) {
-        location.href = "/";
-      }else{
-        window.location.reload();
-      }
-    }, 1000);
-
+    // Si el usuario desea volver al inicio de sesión, se redirige a la página de inicio
+    if (confirm("Desea volver al inicio de sesión?")) {
+      location.href = "/";
+    } else {
+      window.location.reload();
+    }
   });
 
   return (

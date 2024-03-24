@@ -4,6 +4,7 @@ import ButtonCom from "../../components/Button";
 import { useForm } from "react-hook-form";
 import Logo from "../../assets/Logo.svg";
 import { NavLink } from "react-router-dom";
+import { loginUsuario, existeUsuario} from "../../hooks/pocketBase/Usuarios";
 
 const Login = () => {
   const {
@@ -12,19 +13,15 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  // Arreglo lleno (existe un usuario con ese nombre o tambien con ese correo)
-  // findUser("francisco", "admin@gmail.com"); // Funcion para buscar usuarios en la base de datos
+  const onSubmit = handleSubmit(async (data) => {
+    // Llama a la función loginUsuario del archivo Usuarios.js para iniciar sesión
+    const usuario = await loginUsuario(data.correo_electronico, data.contraseña)
 
-  // // Arreglo vacio (no existe registro de favorito con ese usuario y receta)
-  // findFavoritos("fbeu3nimrxh9dym", "zgqll98m7ev6dqg"); //
-
-  // // Arreglo lleno (existe registro de favorito con ese usuario y receta)
-  // findFavoritos("zr73oyorcglfh60", "zgqll98m7ev6dqg"); 
-
-  const onSubmit = handleSubmit((data) => {
-    // Todavia no funciona
-    // findUser(data.correo_electronico, data.contraseña)
-    
+    // Si el usuario existe, devolvera un objeto con los datos del usuario
+    if (usuario) {
+      const user = await existeUsuario(usuario.record.email)
+      console.log(user[0]);
+    }
   });
 
   return (
