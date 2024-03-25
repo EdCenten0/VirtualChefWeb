@@ -39,19 +39,22 @@ const styles = {
   },
 };
 
-const ImgInput = ({ register, isRequired, errors }) => {
+const ImgInput = ({ register, isRequired, errors, name, trigger }) => {
   const [image, setImage] = useState(null);
+
+  const replaceName = name.replace(/ /g, "_").toLowerCase();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(URL.createObjectURL(file));
+    trigger(replaceName);
   };
 
   return (
     <>
       <div style={styles.container} className=''>
         <input
-          {...register("img", { required: isRequired })}
+          {...register(replaceName, { required: isRequired })}
           style={styles.input}
           type='file'
           accept='image/*'
@@ -63,7 +66,7 @@ const ImgInput = ({ register, isRequired, errors }) => {
           alt='cross'
         />
       </div>
-      {errors.img && (
+      {errors[replaceName] && (
         <span className='text-red-600 text-xl'>Este campo es requerido</span>
       )}
     </>
