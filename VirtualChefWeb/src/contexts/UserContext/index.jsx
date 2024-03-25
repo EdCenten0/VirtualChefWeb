@@ -1,24 +1,32 @@
-import { useState, createContext, useContext, useEffect } from "react";
+// UserContext.js
+import { createContext, useState, useEffect } from "react";
 
-export const userContext = createContext();
+export const UserContext = createContext();
 
+export const UserProvider = ({ children }) => {
+  // Obtener el usuario almacenado en el localStorage, si existe
+  const storedUser = JSON.parse(localStorage.getItem("user"));
 
-function UserProvider({ children }) {
-    const [user, setUser] = useState(null);
+  const defaultUser = storedUser || {
+    id: "",
+  };
 
-  function registerUser(newUser) {
+  const [user, setUser] = useState(defaultUser);
+
+  useEffect(() => {
+    // Almacenar el usuario en el localStorage cada vez que cambie
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  const updateUser = (newUserData) => {
     setUser({
-        id: newUser.id,
-        email: newUser.email,
-        username: newUser.username,
+      id: newUserData.id,
     });
-  }
+  };
 
   return (
-    <userContext.Provider value={{ user, setUser, registerUser }}>
+    <UserContext.Provider value={{ user, updateUser }}>
       {children}
-    </userContext.Provider>
+    </UserContext.Provider>
   );
-}
-
-export default UserProvider;
+};

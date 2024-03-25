@@ -7,23 +7,6 @@ pb.autoCancellation(false);
 
 const ALL_FAVORITOS = await pb.collection("usuario_recetas_favoritas").getFullList({});
 
-// Sin probar
-// export async function createFavoritos(data) {
-
-//     try {
-//         // Tabla de usuarios en pocketbase
-//         const datos = {
-//             recetasId: data.recetasId,
-//             usuarioId: data.usuarioId
-//         }
-
-//         await pb.collection('usuario_recetas_favoritas').create(datos);
-//     } catch (error) {
-//         alert(".");
-//     }
-
-// }
-
 async function findFavoritos(usuarioId, recetasId) {
     try {
         const favoritosUser = await pb.collection("usuario_recetas_favoritas").getFullList({}, {
@@ -37,4 +20,14 @@ async function findFavoritos(usuarioId, recetasId) {
     }
 }
 
-export { ALL_FAVORITOS, findFavoritos };
+const getFavoritos = async (id_user) => {
+    // Primero se obtiene el id del usuario con las recetas que ha marcado como favoritas
+    const favoritosUser = await pb
+      .collection("usuario_recetas_favoritas")
+      .getFullList({ filter: `usuarioId = "${id_user}"`, expand: ["recetasId"] });
+
+    return favoritosUser;
+  } 
+
+
+export { ALL_FAVORITOS, findFavoritos, getFavoritos };
