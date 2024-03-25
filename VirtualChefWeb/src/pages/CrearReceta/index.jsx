@@ -4,9 +4,10 @@
  * @returns {JSX.Element} El componente de creación de receta.
  */
 
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, NavLink } from "react-router-dom";
+import { isEmpty } from "lodash";
 import Input from "../../components/Input";
 import InputAgregarElemento from "../../components/Input/InputAgregarElemento";
 import Button from "../../components/Button";
@@ -16,93 +17,114 @@ import Select from "../../components/Select";
 import TextArea from "../../components/TextArea";
 import ControladorPasos from "../../components/ControladorPasos";
 import TarjetasAgregados from "../../components/TarjetasAgregados";
-import { CrearRecetaProvider } from "../../contexts/CrearRecetaContext";
+import {
+  CrearRecetaContext,
+  CrearRecetaProvider,
+} from "../../contexts/CrearRecetaContext";
 
 const CrearReceta1 = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    trigger,
+    formState: { errors, dirtyFields },
   } = useForm();
 
+  const { receta, setReceta } = useContext(CrearRecetaContext);
+
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    location.href = "/CrearReceta2";
+    console.log("Guardando");
+    setReceta("adios");
   });
+
+  const renderLink = () => {
+    console.log("errors");
+    console.log(errors);
+    if (isEmpty(errors) && Object.keys(dirtyFields).length >= 3) {
+      return <Link to={"/CrearReceta2"}>Siguiente</Link>;
+    } else {
+      return <p className=''>Siguiente</p>;
+    }
+  };
+  console.log(dirtyFields);
 
   return (
     <>
-      <CrearRecetaProvider>
-        <main className='m-10'>
-          <div className='mx-4 my-2'>
-            <HeaderText text={"Agrega una receta"} />
-          </div>
+      <main className='m-10'>
+        <div className='mx-4 my-2'>
+          <HeaderText text={"Agrega una receta"} />
+        </div>
 
-          <form onSubmit={onSubmit}>
-            <div className='grid grid-cols-3 grid-rows-2 gap-7 m-3'>
-              <div className='flex flex-col justify-between gap-10'>
-                <ImgInput
-                  errors={errors}
-                  register={register}
-                  isRequired={true}
-                />
-                <ControladorPasos paso={1} />
-                <Link to={"/CrearReceta2"}>
-                  <Button text={"Siguiente"} />
-                </Link>
-              </div>
+        <form onSubmit={onSubmit}>
+          <div className='grid grid-cols-3 grid-rows-2 gap-7 m-3'>
+            <div className='flex flex-col justify-between gap-10'>
+              <ImgInput
+                errors={errors}
+                register={register}
+                isRequired={true}
+                name={"image"}
+                trigger={trigger}
+              />
+              <ControladorPasos paso={1} />
 
-              <div className='col-span-2 row-span-2'>
-                <Input
-                  errors={errors}
-                  isRequired={true}
-                  register={register}
-                  name={"Nombre"}
-                  placeholder={"Nombre de la receta"}
-                />
+              <Button text={""}>
+                <span onClick={onSubmit}>{renderLink()}</span>
+              </Button>
+            </div>
 
-                <TextArea
-                  errors={errors}
-                  isRequired={true}
-                  register={register}
-                  name={"Descripcion"}
-                  placeholder={"Agrega una descripcion"}
-                />
+            <div className='col-span-2 row-span-2'>
+              <Input
+                errors={errors}
+                isRequired={true}
+                register={register}
+                name={"Nombre"}
+                placeholder={"Nombre de la receta"}
+              />
 
-                <div className='flex gap-14'>
-                  <div>
-                    <p className='text-2xl'>Tiempo de preparacion</p>
-                    <div className='flex gap-3'>
-                      <Input
-                        errors={errors}
-                        isRequired={true}
-                        register={register}
-                        name={"Tiempo"}
-                        placeholder={"10 minutos"}
-                        type='number'
-                        minLength={1}
-                      />
-                      <p className='flex justify-center items-center'>
-                        Minutos....
-                      </p>
-                    </div>
-                  </div>
-                  <div className='flex flex-col gap-3'>
-                    <p className='text-2xl'>Tiempo de comida</p>
-                    <Select
+              <TextArea
+                errors={errors}
+                isRequired={true}
+                register={register}
+                name={"Descripcion"}
+                placeholder={"Agrega una descripcion"}
+                onChange={() => {
+                  console.log(errors);
+                }}
+              />
+
+              <div className='flex gap-14'>
+                <div>
+                  <p className='text-2xl'>Tiempo de preparacion</p>
+                  <div className='flex gap-3'>
+                    <Input
                       errors={errors}
                       isRequired={true}
                       register={register}
-                      name={"mealTime"}
-                      valores={["Desayuno", "Almuerzo", "Cena"]}
+                      name={"Tiempo"}
+                      placeholder={"10 minutos"}
+                      type='number'
+                      minLength={1}
                     />
+                    <p className='flex justify-center items-center'>
+                      Minutos....
+                    </p>
                   </div>
+                </div>
+                <div className='flex flex-col gap-3'>
+                  <p className='text-2xl'>Tiempo de comida</p>
+                  <Select
+                    errors={errors}
+                    isRequired={true}
+                    register={register}
+                    name={"mealTime"}
+                    valores={["Desayuno", "Almuerzo", "Cena"]}
+                  />
                 </div>
               </div>
             </div>
-          </form>
-        </main>
-      </CrearRecetaProvider>
+          </div>
+        </form>
+      </main>
     </>
   );
 };
@@ -114,43 +136,44 @@ const CrearReceta2 = () => {
     formState: { errors },
   } = useForm();
 
+  const { receta, setReceta } = React.useContext(CrearRecetaContext);
+  console.log(receta);
+
   return (
     <>
-      <CrearRecetaProvider>
-        <main className='m-10'>
-          <div className='mx-4 my-2'>
-            <HeaderText text={"Agrega una receta"} />
-            <div className='grid grid-cols-2 gap-10'>
-              <div className='flex justify-center flex-col gap-8'>
-                <InputAgregarElemento
-                  errors={errors}
-                  register={register}
-                  name={"Ingrediente"}
-                  placeholder={"Chiltoma con tomate"}
-                  addIcon={true}
-                />
-                <ControladorPasos paso={2} />
+      <main className='m-10'>
+        <div className='mx-4 my-2'>
+          <HeaderText text={"Agrega una receta"} />
+          <div className='grid grid-cols-2 gap-10'>
+            <div className='flex justify-center flex-col gap-8'>
+              <InputAgregarElemento
+                errors={errors}
+                register={register}
+                name={"Ingrediente"}
+                placeholder={"Chiltoma con tomate"}
+                addIcon={true}
+              />
+              <ControladorPasos paso={2} />
 
-                <NavLink to={"/CrearReceta3"}>
-                  <Button text={"Siguiente"} />
-                </NavLink>
-              </div>
+              <NavLink to={"/CrearReceta3"}>
+                <Button text={"Siguiente"} />
+              </NavLink>
+            </div>
 
-              <div>
-                <HeaderText text={"Ingredientes"} />
-                <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                </div>
+            <div>
+              <HeaderText text={"Ingredientes"} />
+              <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
               </div>
             </div>
           </div>
-        </main>
-      </CrearRecetaProvider>
+        </div>
+      </main>
     </>
   );
 };
@@ -163,38 +186,36 @@ const CrearReceta3 = () => {
   } = useForm();
   return (
     <>
-      <CrearRecetaProvider>
-        <main className='m-10'>
-          <div className='mx-4 my-2'>
-            <HeaderText text={"Agrega una receta"} />
-            <div className='grid grid-cols-2 gap-10'>
-              <div className='flex justify-center flex-col gap-8'>
-                <Input
-                  register={register}
-                  name={"Pasos"}
-                  placeholder={"Hornear 10 minutos"}
-                  addIcon={true}
-                  errors={errors}
-                />
-                <ControladorPasos paso={3} />
-                <Button text={"Siguiente"} />
-              </div>
+      <main className='m-10'>
+        <div className='mx-4 my-2'>
+          <HeaderText text={"Agrega una receta"} />
+          <div className='grid grid-cols-2 gap-10'>
+            <div className='flex justify-center flex-col gap-8'>
+              <Input
+                register={register}
+                name={"Pasos"}
+                placeholder={"Hornear 10 minutos"}
+                addIcon={true}
+                errors={errors}
+              />
+              <ControladorPasos paso={3} />
+              <Button text={"Siguiente"} />
+            </div>
 
-              <div>
-                <HeaderText text={"Pasos"} />
-                <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                  <TarjetasAgregados />
-                </div>
+            <div>
+              <HeaderText text={"Pasos"} />
+              <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
+                <TarjetasAgregados />
               </div>
             </div>
           </div>
-        </main>
-      </CrearRecetaProvider>
+        </div>
+      </main>
     </>
   );
 };
