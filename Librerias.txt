@@ -1,2 +1,14 @@
 1) Swiper:
 npm i swiper
+
+2) React hook Form:
+npm i react-hook-form
+
+3) Lodash:
+npm i lodash
+
+4) Pocketbase:
+npm i pocketbase
+
+5) React router dom:
+npm i react-router-dom
