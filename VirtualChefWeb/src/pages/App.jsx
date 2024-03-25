@@ -7,6 +7,7 @@ import Menu_Principal from "./Menu_Principal";
 import About from "./About";
 import Favoritos from "./Favoritos/index";
 import VistaReceta from "./VIstaReceta";
+import UserProvider from "../contexts/UserContext";
 
 function App() {
   const AppRoutes = () => {
@@ -28,9 +29,11 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </UserProvider>
     </>
   );
 }

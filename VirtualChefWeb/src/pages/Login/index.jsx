@@ -4,9 +4,14 @@ import ButtonCom from "../../components/Button";
 import { useForm } from "react-hook-form";
 import Logo from "../../assets/Logo.svg";
 import { NavLink } from "react-router-dom";
-import { loginUsuario, existeUsuario} from "../../hooks/pocketBase/Usuarios";
+import { loginUsuario, existeUsuario } from "../../hooks/pocketBase/Usuarios";
+
+import { useContext } from "react";
+import { userContext } from "../../contexts/UserContext/index";
 
 const Login = () => {
+  const { registerUser, user } = useContext(userContext);
+
   const {
     register,
     handleSubmit,
@@ -15,12 +20,18 @@ const Login = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     // Llama a la función loginUsuario del archivo Usuarios.js para iniciar sesión
-    const usuario = await loginUsuario(data.correo_electronico, data.contraseña)
+    const usuario = await loginUsuario(
+      data.correo_electronico,
+      data.contraseña
+    );
 
     // Si el usuario existe, devolvera un objeto con los datos del usuario
     if (usuario) {
-      const user = await existeUsuario(usuario.record.email)
-      console.log(user[0]);
+      // Traera el registro del usuario logeado
+      const usuarioLog = await existeUsuario(usuario.record.email);
+      registerUser(usuarioLog[0]);
+
+      window.location.href = "/home";
     }
   });
 
