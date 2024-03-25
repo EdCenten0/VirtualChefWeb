@@ -7,14 +7,10 @@ export const CrearRecetaContext = createContext();
 export const CrearRecetaProvider = ({ children }) => {
   // State variables and functions go here
 
+  const [receta, setReceta] = useState("Hola");
+
   return (
-    <CrearRecetaContext.Provider
-      value={
-        {
-          /* Provide the necessary values */
-        }
-      }
-    >
+    <CrearRecetaContext.Provider value={{ receta, setReceta }}>
       {children}
     </CrearRecetaContext.Provider>
   );
