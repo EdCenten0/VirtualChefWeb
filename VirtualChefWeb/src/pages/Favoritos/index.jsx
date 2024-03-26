@@ -63,7 +63,7 @@ const Favoritos = () => {
             <Loader />
           </div>
         ) : (
-          <div className="grid grid-cols-3 my-10 gap-y-12 gap-x-8">
+          <div className={`grid grid-cols-3 gap-y-12 gap-x-8 ${favoritos.length == 0 ? '' : 'my-12' }`}>
             {favoritos.map((info) => {
               return (
                 <CardFavoritos
@@ -77,8 +77,16 @@ const Favoritos = () => {
             })}
           </div>
         )}
+
+        {
+          favoritos.length == 0 && !loading ? (
+            <div className="w-full h-[500px] flex items-center justify-center text-[#B5B5B5]">
+              <h1 className="text-[20px]">No tienes recetas favoritas</h1>
+            </div>
+          ) : null
+        }
       </div>
-      <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white "></div>
+      <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white absolute bottom-0"></div>
     </main>
   );
 };

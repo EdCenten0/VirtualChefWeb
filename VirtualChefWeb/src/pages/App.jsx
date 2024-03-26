@@ -9,6 +9,7 @@ import Favoritos from "./Favoritos/index";
 import VistaReceta from "./VIstaReceta";
 import { UserProvider } from "../contexts/UserContext";
 import { CrearRecetaProvider } from "../contexts/CrearRecetaContext";
+import Perfil from "./Perfil/index"; 
 
 function App() {
   const AppRoutes = () => {
@@ -23,6 +24,7 @@ function App() {
       { path: "/crearReceta3", element: <CrearReceta3 /> },
       { path: "/receta", element: <VistaReceta /> },
       { path: "/about", element: <About /> },
+      { path: "/perfil", element: <Perfil /> },
     ]);
 
     return routes;
