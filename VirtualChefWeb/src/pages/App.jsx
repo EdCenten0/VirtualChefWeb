@@ -8,6 +8,7 @@ import About from "./About";
 import Favoritos from "./Favoritos/index";
 import VistaReceta from "./VIstaReceta";
 import { CrearRecetaProvider } from "../contexts/CrearRecetaContext";
+import { UserProvider } from "../contexts/UserContext";
 
 function App() {
   const AppRoutes = () => {
@@ -29,11 +30,13 @@ function App() {
 
   return (
     <>
-      <CrearRecetaProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </CrearRecetaProvider>
+      <UserProvider>
+        <CrearRecetaProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </CrearRecetaProvider>
+      </UserProvider>
     </>
   );
 }

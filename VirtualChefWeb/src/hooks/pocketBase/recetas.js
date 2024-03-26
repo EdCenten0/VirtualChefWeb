@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { pb } from "./pocketBase";
-import { getHorario } from "../Horario";
+import { getHorario } from "./Horario";
 
 // globally disable auto cancellation
 pb.autoCancellation(false);

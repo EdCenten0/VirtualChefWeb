@@ -1,76 +1,14 @@
 import CardFavoritos from "../../components/Card/CardFavoritos";
-
 import SearchIcon from "../../assets/search.jpg";
 import IconFavoritos from "../../assets/Corazon.svg";
 import InputIcon from "../../components/Input/InputIcon";
 import IconLeft from "../../assets/Left.svg";
-
-import Ejemplo from "../../assets/Ejemplo.png";
-import Ejemplo2 from "../../assets/Ejemplo2.png";
-import Ejemplo3 from "../../assets/Ejemplo3.png";
-
-const DATA = [
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo,
-  },
-  {
-    name: "Pescado frito",
-    time: "10",
-    img: Ejemplo2,
-  },
-  {
-    name: "Ensalada",
-    time: "10",
-    img: Ejemplo3,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo,
-  },
-  {
-    name: "Pescado frito",
-    time: "10",
-    img: Ejemplo2,
-  },
-  {
-    name: "Ensalada",
-    time: "10",
-    img: Ejemplo3,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo,
-  },
-  {
-    name: "Pescado frito",
-    time: "10",
-    img: Ejemplo2,
-  },
-  {
-    name: "Ensalada",
-    time: "10",
-    img: Ejemplo3,
-  },
-  {
-    name: "Pollo frito",
-    time: "10",
-    img: Ejemplo,
-  },
-  {
-    name: "Pescado frito",
-    time: "10",
-    img: Ejemplo2,
-  },
-  {
-    name: "Ensalada",
-    time: "10",
-    img: Ejemplo3,
-  },
-];
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
+import { getFavoritos } from "../../hooks/pocketBase/Favoritos";
+import Loader from "../../components/Icons/Loader";
+import { getImagen } from "../../hooks/pocketBase/pocketBase";
+import NoLogged from "../../components/Card/NoLogged";
 
 function handleClick() {
   if (confirm("¿Estás seguro de que deseas continuar?")) {
@@ -78,8 +16,30 @@ function handleClick() {
   }
 }
 
-const Footer = () => {
-  return (
+const Favoritos = () => {
+  const { user } = useContext(UserContext);
+
+  const [favoritos, setFavoritos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const Favoritos = async () => {
+      try {
+        setFavoritos(await getFavoritos(user.id));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      }
+    };
+    Favoritos();
+  }, [user.id]);
+
+  return user.id == "" ? (
+    <NoLogged></NoLogged>
+  ) : (
     <main className="w-screen flex flex-col items-center h-screen">
       <img
         className="absolute left-0 p-4 cursor-pointer"
@@ -97,23 +57,30 @@ const Footer = () => {
           icon={SearchIcon}
           placeholder={"Buscar recetas..."}
         ></InputIcon>
-        <div className="grid grid-cols-3 my-10 gap-y-12 gap-x-8">
-          {DATA.map((info) => {
-            return (
-              <CardFavoritos
-                img={info.img}
-                name={info.name}
-                time={info.time}
-                key={info.name}
-              ></CardFavoritos>
-            );
-          })}
-        </div>
+
+        {loading ? (
+          <div className="h-[500px] w-full">
+            <Loader />
+          </div>
+        ) : (
+          <div className="grid grid-cols-3 my-10 gap-y-12 gap-x-8">
+            {favoritos.map((info) => {
+              return (
+                <CardFavoritos
+                  img={getImagen(info.expand.recetasId)}
+                  name={info.expand.recetasId.nombre}
+                  time={info.expand.recetasId.tiempoPreparacion}
+                  id={info.expand.recetasId.id}
+                  key={info.expand.recetasId.id}
+                ></CardFavoritos>
+              );
+            })}
+          </div>
+        )}
       </div>
-      <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white ">
-      </div>
+      <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white "></div>
     </main>
   );
 };
 
-export default Footer;
+export default Favoritos;
