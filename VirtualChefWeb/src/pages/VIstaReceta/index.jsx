@@ -5,8 +5,9 @@ import { usePasos } from "../../hooks/pocketBase/pasos";
 import Header from "../../components/Header";
 import Corazon from "../../components/Icons/Corazon";
 import DotMenu from "../../components/DotMenu/DotMenu";
+import { getImagen } from "../../hooks/pocketBase/pocketBase";
 
-function VistaReceta({ data }) {
+function VistaReceta() {
   const { searchReceta } = useRecetas();
   const { getIngredientes } = useIngredientes();
   const { getPasos } = usePasos();
@@ -31,24 +32,30 @@ function VistaReceta({ data }) {
     fetchReceta();
   }, [id]);
 
-  const { nombre, descripcion, imagen, tiempoPreparacion, horarioId } = receta;
+  const {
+    collectionId,
+    id: recordId,
+    nombre,
+    descripcion,
+    imagen,
+    tiempoPreparacion,
+    horarioId,
+  } = receta;
   const creador =
     receta.expand?.creador.nombre + "(" + receta.expand?.creador.email + ")" ||
     "Anónimo";
 
+  console.log(receta);
+
+  const urlImagen = getImagen({
+    collectionId: collectionId,
+    id: recordId,
+    imagen: imagen,
+  });
+
   console.log("Console log desde VistaReceta");
   console.log(ingredientes);
   console.log(pasos);
-
-  // const ingredientes = ["Beicon", "Cebolla", "Ajo", "Huevo", "Carne picada"];
-  // const pasos = [
-  //   "Rallar la cebolla y picar el ajo",
-  //   "Mezclar la carne picada, la cebolla, el ajo y el huevo hasta que estén bien integrados todos los ingredientes",
-  //   "Mezclar la carne picada, la cebolla, el ajo y el huevo hasta que estén bien integrados todos los ingredientes",
-  //   "Mezclar la carne picada, la cebolla, el ajo y el huevo hasta que estén bien integrados todos los ingredientes",
-  //   "Mezclar la carne picada, la cebolla, el ajo y el huevo hasta que estén bien integrados todos los ingredientes",
-  //   "Mezclar la carne picada, la cebolla, el ajo y el huevo hasta que estén bien integrados todos los ingredientes",
-  // ];
 
   const renderIngredientes = () =>
     ingredientes.map((ingrediente, index) => {
@@ -85,7 +92,11 @@ function VistaReceta({ data }) {
           <Header />
         </div>
         <section className='flex items-end justify-center h-[40vh] w-full '>
-          <img className='w-[27rem]' src={imagen} alt='recetaImg' />
+          <img
+            className='w-[20vw] h-[35vh] object-cover rounded-2xl'
+            src={urlImagen}
+            alt='recetaImg'
+          />
         </section>
         <section className='bg-[#fff] h-[60vh] w-full rounded-t-[5rem]  flex flex-col gap-6'>
           <div className='flex justify-between px-8 items-center'>

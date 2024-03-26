@@ -2,13 +2,12 @@ import React from "react";
 
 const ControladorPasos = ({ paso }) => {
   let elementos = [];
-  const colorActivado = "#246C2C";
-  const colorDesactivado = "#5F2B0";
 
   for (let i = 0; i < 4; i++) {
     if (i === paso - 1) {
       elementos.push(
         <svg
+          key={i}
           version='1.1'
           xmlns='http://www.w3.org/2000/svg'
           width='30'
@@ -21,6 +20,7 @@ const ControladorPasos = ({ paso }) => {
     } else {
       elementos.push(
         <svg
+          key={i}
           version='1.1'
           xmlns='http://www.w3.org/2000/svg'
           width='30'
