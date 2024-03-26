@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import IconCreate from "../../assets/Create-pencil.svg";
 import SearchIcon from "../../assets/search.jpg";
@@ -14,8 +14,12 @@ import CarruselComidas from "../../components/Carrusel/CarruselComidas";
 import { useRecetas } from "../../hooks/pocketBase/recetas";
 
 import Loader from "../../components/Icons/Loader";
+import NoLogged from "../../components/Card/NoLogged";
+import { UserContext } from "../../contexts/UserContext";
 
 function Menu_Principal() {
+  const { user } = useContext(UserContext);
+
   const { getRecetasMenu } = useRecetas();
   const [Desayunos, setDesayunos] = useState([]);
   const [Almuerzos, setAlmuerzos] = useState([]);
@@ -39,7 +43,9 @@ function Menu_Principal() {
     setComidas();
   }, [getRecetasMenu]);
 
-  return (
+  return user.id == "" ? (
+    <NoLogged></NoLogged>
+  ) : (
     <>
       <main className="w-screen pt-10 flex items-center flex-col ">
         <div className="fixed bottom-0 left-0 p-5 z-20">
@@ -77,6 +83,7 @@ function Menu_Principal() {
       </main>
     </>
   );
+    
 }
 
 export default Menu_Principal;

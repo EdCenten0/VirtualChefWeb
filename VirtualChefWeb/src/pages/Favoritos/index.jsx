@@ -8,6 +8,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { getFavoritos } from "../../hooks/pocketBase/Favoritos";
 import Loader from "../../components/Icons/Loader";
 import { getImagen } from "../../hooks/pocketBase/pocketBase";
+import NoLogged from "../../components/Card/NoLogged";
 
 function handleClick() {
   if (confirm("¿Estás seguro de que deseas continuar?")) {
@@ -17,7 +18,6 @@ function handleClick() {
 
 const Favoritos = () => {
   const { user } = useContext(UserContext);
-  console.log(user)
 
   const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,9 +37,9 @@ const Favoritos = () => {
     Favoritos();
   }, [user.id]);
 
-  console.log(favoritos);
-
-  return (
+  return user.id == "" ? (
+    <NoLogged></NoLogged>
+  ) : (
     <main className="w-screen flex flex-col items-center h-screen">
       <img
         className="absolute left-0 p-4 cursor-pointer"
