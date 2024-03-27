@@ -12,9 +12,9 @@ async function findFavoritos(usuarioId, recetasId) {
         const favoritosUser = await pb.collection("usuario_recetas_favoritas").getFullList({}, {
             filter: `recetasId = "${recetasId}" && usuarioId = "${usuarioId}"`,
         });
-        console.log(favoritosUser);
+        const validar = favoritosUser.length > 0 ? true : false;
+        return validar;
 
-        pb.authStore.clear();
     } catch (error) {
         alert(error);
     }
@@ -23,11 +23,35 @@ async function findFavoritos(usuarioId, recetasId) {
 const getFavoritos = async (id_user) => {
     // Primero se obtiene el id del usuario con las recetas que ha marcado como favoritas
     const favoritosUser = await pb
-      .collection("usuario_recetas_favoritas")
-      .getFullList({ filter: `usuarioId = "${id_user}"`, expand: ["recetasId"] });
+        .collection("usuario_recetas_favoritas")
+        .getFullList({ filter: `usuarioId = "${id_user}"`, expand: ["recetasId"] });
 
     return favoritosUser;
-  } 
+}
+
+const guardarFavorito = async (id_user, id_receta) => {
+    try {
+        const favorito = await pb.collection("usuario_recetas_favoritas").create({
+            usuarioId: id_user,
+            recetasId: id_receta,
+        });
+        console.log(favorito);
+    } catch (error) {
+        alert(error);
+    }
+}
+
+const eliminarFavorito = async (id_user, id_receta) => {
+    try {
+        const favoritosUser = await pb.collection("usuario_recetas_favoritas").getFullList({}, {
+            filter: `recetasId = "${id_receta}" && usuarioId = "${id_user}"`,
+        });
+        const favorito = await pb.collection("usuario_recetas_favoritas").delete(favoritosUser[0].id);
+        console.log(favorito);
+    } catch (error) {
+        alert(error);
+    }
+}
 
 
-export { ALL_FAVORITOS, findFavoritos, getFavoritos };
+export { ALL_FAVORITOS, findFavoritos, getFavoritos, guardarFavorito, eliminarFavorito };
