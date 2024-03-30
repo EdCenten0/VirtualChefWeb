@@ -8,6 +8,7 @@ pb.autoCancellation(false);
 const ALL_FAVORITOS = await pb.collection("usuario_recetas_favoritas").getFullList({});
 
 async function findFavoritos(usuarioId, recetasId) {
+    // Filtra todas las recetas favoritas de un usuario
     try {
         const favoritosUser = await pb.collection("usuario_recetas_favoritas").getFullList({}, {
             filter: `recetasId = "${recetasId}" && usuarioId = "${usuarioId}"`,
@@ -31,6 +32,7 @@ const getFavoritos = async (id_user) => {
 
 const guardarFavorito = async (id_user, id_receta) => {
     try {
+        // Como es una tabla intermedia, solo se necesita del id del usuario y de la receta para guardarlo
         const favorito = await pb.collection("usuario_recetas_favoritas").create({
             usuarioId: id_user,
             recetasId: id_receta,
@@ -42,6 +44,7 @@ const guardarFavorito = async (id_user, id_receta) => {
 }
 
 const eliminarFavorito = async (id_user, id_receta) => {
+    // Como es una tabla intermedia, solo se necesita del id del usuario y de la receta para eliminarlo
     try {
         const favoritosUser = await pb.collection("usuario_recetas_favoritas").getFullList({}, {
             filter: `recetasId = "${id_receta}" && usuarioId = "${id_user}"`,

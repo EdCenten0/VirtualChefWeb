@@ -12,7 +12,7 @@ const NoLogged = () => {
         to="/"
         className="px-5 py-2 text-white bg-[#246C2C] rounded-lg text-lg "
       >
-        Volver al login
+        Volver al inicio de sesión
       </NavLink>
     </div>
   );
