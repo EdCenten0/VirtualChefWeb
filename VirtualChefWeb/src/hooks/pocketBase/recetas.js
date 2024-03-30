@@ -57,9 +57,18 @@ function useRecetas() {
       .collection("recetas")
       .getFullList({ filter: `horarioId = "${tiempo[0].id}"` });
     return recetasMenu;
-  } 
+  }
 
-  return { recetas, loading, error, createNewReceta, getRecetas, searchReceta, getRecetasMenu };
+  const buscarRecetas = async (nombre) => {
+    const receta = await pb
+      .collection('recetas')
+      .getFullList({filter: `nombre ~ "${nombre}"`});
+      
+      
+    return receta;
+  };
+
+  return { recetas, loading, error, createNewReceta, getRecetas, searchReceta, getRecetasMenu, buscarRecetas };
 }
 
 export { useRecetas };
