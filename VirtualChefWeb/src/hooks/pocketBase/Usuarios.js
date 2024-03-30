@@ -39,29 +39,25 @@ export async function createUser(data) {
         return user;
 
     } catch (error) {
-        console.log(error);
+        alert(error);
     }
 }
 
 async function loginUsuario(email, password) {
     try {
-        console.log(email);
-        console.log(password);
         const authData = await pb.collection('users').authWithPassword(`${email}`, `${password}`);
-        console.log("Usuario encontrado");
         return authData;
-
     } catch (error) {
         console.log(error);
         alert("Usuario no encontrado, intente de nuevo");
     }
 }
 
-async function existeUsuario(email, username) {
+async function existeUsuario(email, username, id) {
     try {
         // Busca si hay un usuario con el mismo correo o nombre de usuario
         const user = await pb.collection("users").getFullList({}, {
-            filter: `email = "${email}" || username = "${username}"`,
+            filter: `email = "${email}" || username = "${username}" || id = "${id}"`,
         });
 
         // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
