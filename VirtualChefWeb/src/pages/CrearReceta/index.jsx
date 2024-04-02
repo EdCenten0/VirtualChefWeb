@@ -204,38 +204,48 @@ const CrearReceta2 = () => {
 };
 
 const CrearReceta3 = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { receta, setReceta } = React.useContext(CrearRecetaContext);
+
+  const pasosIsEmpty = receta.pasos?.length === 0;
+
+  const renderLink = () => {
+    if (!pasosIsEmpty) {
+      return <Link to={""}>Siguiente</Link>;
+    } else {
+      return <p className=''>Siguiente</p>;
+    }
+  };
   return (
     <>
       <main className='m-10'>
         <div className='mx-4 my-2'>
           <HeaderText text={"Agrega una receta"} />
           <div className='grid grid-cols-2 gap-10'>
-            <div className='flex justify-center flex-col gap-8'>
-              <Input
-                register={register}
+            <div className='flex justify-start flex-col gap-8'>
+              <InputAgregarElemento
                 name={"Pasos"}
-                placeholder={"Hornear 10 minutos"}
-                addIcon={true}
-                errors={errors}
+                placeholder={"Hornear por 10 minutos"}
+                nombreDelArreglo={"pasos"}
               />
               <ControladorPasos paso={3} />
-              <Button text={"Siguiente"} />
+              <Button text={""}>
+                <span>{renderLink()}</span>
+              </Button>
             </div>
 
-            <div>
+            <div className=''>
               <HeaderText text={"Pasos"} />
-              <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
+              <p>Agrega algunos pasos para tu receta!</p>
+              <div className='w-full min-h-10 bg-slate-400 p-2 rounded-lg my-5'>
+                {receta.pasos?.map((paso, index) => {
+                  return (
+                    <TarjetasAgregados
+                      key={index}
+                      elemento={paso}
+                      nombreDelArray={"pasos"}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
