@@ -4,15 +4,6 @@ import { Suspense, lazy } from "react";
 // Páginas
 import { CrearReceta1, CrearReceta2, CrearReceta3 } from "./CrearReceta";
 import { Registrar } from "./Login/Registrar";
-import { useRoutes, BrowserRouter } from "react-router-dom";
-import Login from "./Login/index";
-import NotFound from "./Not_Found/Not_Found";
-import Menu_Principal from "./Menu_Principal";
-import About from "./About";
-import Favoritos from "./Favoritos/index";
-import VistaReceta from "./VIstaReceta";
-import { CrearRecetaProvider } from "../contexts/CrearRecetaContext";
-import { UserProvider } from "../contexts/UserContext";
 const Login = lazy(() => import("./Login/index"));
 const NotFound = lazy(() => import("./Not_Found/Not_Found"));
 const Menu_Principal = lazy(() => import("./Menu_Principal"));
