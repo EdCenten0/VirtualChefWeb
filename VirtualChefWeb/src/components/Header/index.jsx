@@ -19,10 +19,10 @@ const Header = () => {
             <img src={Logo} className='size-[100px]' />
           </NavLink>
           <NavLink
-            to='/recetas'
+            to='/perfil'
             className='hover:cursor-pointer hover:underline'
           >
-            Recetas
+            Perfil
           </NavLink>
           <NavLink to='/about' className='hover:cursor-pointer hover:underline'>
             Acerca de

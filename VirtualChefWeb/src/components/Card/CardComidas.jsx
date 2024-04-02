@@ -23,7 +23,7 @@ function CardComidas({ name, time, imagen, id }) {
             <h6 className="text-[15px]">{time + " minutos"}</h6>
           </label>
         </article>
-        <Corazon></Corazon>
+        <Corazon id_receta={id}></Corazon>
       </section>
     </div>
   );
