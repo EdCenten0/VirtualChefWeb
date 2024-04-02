@@ -53,6 +53,8 @@ const CrearReceta1 = () => {
       imagen: data.image,
       tiempoPreparacion: data.tiempo,
       horarioId: pickHorarioId(data.horarioId),
+      ingredientes: [],
+      pasos: [],
     });
   });
 
@@ -146,26 +148,17 @@ const CrearReceta1 = () => {
 };
 
 const CrearReceta2 = () => {
-  const {
-    register,
-    handleSubmit,
-    trigger,
-    formState: { errors, dirtyFields },
-  } = useForm();
-
   const { receta, setReceta } = React.useContext(CrearRecetaContext);
 
+  const ingredientesIsEmpty = receta.ingredientes?.length === 0;
+
   const renderLink = () => {
-    if (isEmpty(errors) && Object.keys(dirtyFields).length >= 1) {
+    if (!ingredientesIsEmpty) {
       return <Link to={"/CrearReceta3"}>Siguiente</Link>;
     } else {
       return <p className=''>Siguiente</p>;
     }
   };
-
-  const onSubmit = handleSubmit((data) => {
-    setReceta("adios");
-  });
 
   console.log(receta);
 
@@ -175,30 +168,32 @@ const CrearReceta2 = () => {
         <div className='mx-4 my-2'>
           <HeaderText text={"Agrega una receta"} />
           <div className='grid grid-cols-2 gap-10'>
-            <div className='flex justify-center flex-col gap-8'>
+            <div className='flex justify-start flex-col gap-8'>
               <InputAgregarElemento
-                errors={errors}
-                register={register}
                 name={"Ingrediente"}
                 placeholder={"Chiltoma con tomate"}
-                addIcon={true}
+                nombreDelArreglo={"ingredientes"}
               />
               <ControladorPasos paso={2} />
 
               <Button text={""}>
-                <span onClick={onSubmit}>{renderLink()}</span>
+                <span>{renderLink()}</span>
               </Button>
             </div>
 
-            <div>
+            <div className=''>
               <HeaderText text={"Ingredientes"} />
-              <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
+              <p>Agrega algunos ingredientes para tu receta!</p>
+              <div className='w-full min-h-10 bg-slate-400 p-2 rounded-lg my-5'>
+                {receta.ingredientes?.map((ingrediente, index) => {
+                  return (
+                    <TarjetasAgregados
+                      key={index}
+                      elemento={ingrediente}
+                      nombreDelArray={"ingredientes"}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
