@@ -32,21 +32,37 @@ const CrearReceta1 = () => {
 
   const { receta, setReceta } = useContext(CrearRecetaContext);
 
+  const pickHorarioId = (horario) => {
+    switch (horario) {
+      case "Desayuno":
+        return "ggqdjlhxly7zono";
+      case "Almuerzo":
+        return "1dt3qs0viyl1w4l";
+      case "Cena":
+        return "i8d4cn28bw4o3vj";
+      default:
+        return "ggqdjlhxly7zono";
+    }
+  };
+
   const onSubmit = handleSubmit((data) => {
-    console.log("Guardando");
-    setReceta("adios");
+    console.log(data);
+    setReceta({
+      nombre: data.nombre,
+      descripcion: data.Descripcion,
+      imagen: data.image,
+      tiempoPreparacion: data.tiempo,
+      horarioId: pickHorarioId(data.horarioId),
+    });
   });
 
   const renderLink = () => {
-    console.log("errors");
-    console.log(errors);
     if (isEmpty(errors) && Object.keys(dirtyFields).length >= 3) {
       return <Link to={"/CrearReceta2"}>Siguiente</Link>;
     } else {
       return <p className=''>Siguiente</p>;
     }
   };
-  console.log(dirtyFields);
 
   return (
     <>
@@ -133,10 +149,24 @@ const CrearReceta2 = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    trigger,
+    formState: { errors, dirtyFields },
   } = useForm();
 
   const { receta, setReceta } = React.useContext(CrearRecetaContext);
+
+  const renderLink = () => {
+    if (isEmpty(errors) && Object.keys(dirtyFields).length >= 1) {
+      return <Link to={"/CrearReceta3"}>Siguiente</Link>;
+    } else {
+      return <p className=''>Siguiente</p>;
+    }
+  };
+
+  const onSubmit = handleSubmit((data) => {
+    setReceta("adios");
+  });
+
   console.log(receta);
 
   return (
@@ -155,9 +185,9 @@ const CrearReceta2 = () => {
               />
               <ControladorPasos paso={2} />
 
-              <NavLink to={"/CrearReceta3"}>
-                <Button text={"Siguiente"} />
-              </NavLink>
+              <Button text={""}>
+                <span onClick={onSubmit}>{renderLink()}</span>
+              </Button>
             </div>
 
             <div>
