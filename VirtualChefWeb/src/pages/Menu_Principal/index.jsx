@@ -49,7 +49,7 @@ function Menu_Principal() {
   return (
     // Esto verifica si el usuario esta logeado, comparandolo con el localStorage o el contexto de react con el id del usuario
     // Si el usuario esta logeado, muestra el menu principal
-    existeUsuario("", "", user.id) ? (
+    user.id != "" && existeUsuario("", "", user.id) != {} (
       <>
         <main className="w-screen pt-10 flex items-center flex-col ">
           <div className="fixed bottom-0 left-0 p-5 z-20">

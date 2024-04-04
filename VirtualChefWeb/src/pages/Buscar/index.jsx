@@ -55,7 +55,7 @@ function Buscar() {
     >
       {
         // Esto verifica si el usuario esta logeado, comparandolo con el localStorage o el contexto de react con el id del usuario
-        existeUsuario("", "", user.id) ? ( 
+        user.id != "" && existeUsuario("", "", user.id) != {} ( 
           // Si el usuario esta logeado, muestra el menu principal
         <>
             <main className="w-screen pt-10 flex items-center flex-col ">

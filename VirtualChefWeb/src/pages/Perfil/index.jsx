@@ -9,7 +9,7 @@ const Perfil = () => {
   return (
     <>
       {
-        existeUsuario("", "", user.id) ? (<h1>Hola</h1>) : (<NoLogged></NoLogged>)
+        user.id != "" && existeUsuario("", "", user.id) != {} ? (<h1>Hola</h1>) : (<NoLogged></NoLogged>)
       }
     </>
   );

@@ -7,7 +7,7 @@ import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
 
 const About = () => {
   const { user } = useContext(UserContext);
-  return existeUsuario("", "", user.id) ? (
+  return user.id != "" && existeUsuario("", "", user.id) != {} ? (
     <>
       <div className="w-screen p-10 flex justify-center ">
         <div className="w-screen flex flex-col  max-w-[1200px]">
