@@ -37,9 +37,7 @@ const Favoritos = () => {
     Favoritos();
   }, [user.id]);
 
-  return existeUsuario("", "", user.id) ? (
-    <NoLogged></NoLogged>
-  ) : (
+  return user.id != "" && existeUsuario("", "", user.id) != {} ? (
     <main className="w-screen flex flex-col items-center relative ">
       <img
         className="absolute left-0 p-4 cursor-pointer"
@@ -80,6 +78,8 @@ const Favoritos = () => {
       </div>
       <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white bottom-0"></div>
     </main>
+  ) : (
+    <NoLogged></NoLogged>
   );
 };
 

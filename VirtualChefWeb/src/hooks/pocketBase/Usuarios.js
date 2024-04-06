@@ -4,6 +4,9 @@ const pb = new PocketBase("http://127.0.0.1:8090");
 
 const ALL_USERS = await pb.collection("users").getFullList({});
 
+// globally disable auto cancellation
+pb.autoCancellation(false);
+
 export async function createUser(data) {
 
     // Buscar el ID del rol de "usuario"

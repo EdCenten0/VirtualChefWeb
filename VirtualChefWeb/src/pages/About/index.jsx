@@ -3,12 +3,11 @@ import Header from "../../components/Header";
 import ProfileCard from "../../components/ProfileCard";
 import NoLogged from "../../components/Card/NoLogged";
 import { UserContext } from "../../contexts/UserContext";
+import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
 
 const About = () => {
   const { user } = useContext(UserContext);
-  return user.id == "" ? (
-    <NoLogged></NoLogged>
-  ) : (
+  return user.id != "" && existeUsuario("", "", user.id) != {} ? (
     <>
       <div className="w-screen p-10 flex justify-center ">
         <div className="w-screen flex flex-col  max-w-[1200px]">
@@ -68,6 +67,8 @@ const About = () => {
         </section>
       </main>
     </>
+  ) : (
+    <NoLogged></NoLogged>
   );
 };
 

@@ -55,12 +55,9 @@ function Buscar() {
     >
       {
         // Esto verifica si el usuario esta logeado, comparandolo con el localStorage o el contexto de react con el id del usuario
-        // Si no lo esta, muestra el componente "NoLogged"
-        existeUsuario("", "", user.id) ? (
-          <NoLogged></NoLogged>
-        ) : (
+        user.id != "" && existeUsuario("", "", user.id) != {} ( 
           // Si el usuario esta logeado, muestra el menu principal
-          <>
+        <>
             <main className="w-screen pt-10 flex items-center flex-col ">
               <div className="fixed bottom-0 left-0 p-5 z-20">
                 <Pop_button Icon={IconCreate} text={"Crear"}></Pop_button>
@@ -75,7 +72,7 @@ function Buscar() {
                       document.querySelector("input").value
                     }`;
                   }}
-                ></InputIcon>
+                  ></InputIcon>
 
                 {Recetas == "" ? (
                   <div className="w-full h-[500px] flex items-center justify-center text-[#B5B5B5]">
@@ -92,14 +89,17 @@ function Buscar() {
                           id={info.id}
                           key={info.id}
                         ></CardComidas>
-                      );
+                        );
                     })}
                   </div>
                 )}
               </div>
             </main>
           </>
-        )
+        ) : (
+          // Si no lo esta, muestra el componente "NoLogged"
+          <NoLogged></NoLogged>
+          )
       }
     </Suspense>
   );

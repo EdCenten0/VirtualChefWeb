@@ -22,6 +22,8 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  localStorage.clear();  
+  
   // Contexto de react, para actualizar el estado y almacenar la información del usuario
   // Ya se ha en el localStorage o en el contexto de react
   const { updateUser } = useContext(UserContext);
