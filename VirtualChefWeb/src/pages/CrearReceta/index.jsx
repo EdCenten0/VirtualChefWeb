@@ -46,11 +46,10 @@ const CrearReceta1 = () => {
   };
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     setReceta({
       nombre: data.nombre,
       descripcion: data.Descripcion,
-      imagen: data.image,
+      imagen: data.imagen,
       tiempoPreparacion: data.tiempo,
       horarioId: pickHorarioId(data.horarioId),
       ingredientes: [],
@@ -80,7 +79,7 @@ const CrearReceta1 = () => {
                 errors={errors}
                 register={register}
                 isRequired={true}
-                name={"image"}
+                name={"imagen"}
                 trigger={trigger}
               />
               <ControladorPasos paso={1} />
@@ -210,7 +209,7 @@ const CrearReceta3 = () => {
 
   const renderLink = () => {
     if (!pasosIsEmpty) {
-      return <Link to={""}>Siguiente</Link>;
+      return <Link to={"/receta"}>Siguiente</Link>;
     } else {
       return <p className=''>Siguiente</p>;
     }
