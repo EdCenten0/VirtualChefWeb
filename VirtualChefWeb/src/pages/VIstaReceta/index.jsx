@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { toast } from "react-hot-toast";
 import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
 import { CrearRecetaContext } from "../../contexts/CrearRecetaContext";
 import { useRecetas } from "../../hooks/pocketBase/recetas";
@@ -9,6 +10,8 @@ import Corazon from "../../components/Icons/Corazon";
 import DotMenu from "../../components/DotMenu/DotMenu";
 import { getImagen } from "../../hooks/pocketBase/pocketBase";
 import Button from "../../components/Button";
+import { Link } from "react-router-dom";
+import "./toast.css";
 
 function VistaReceta() {
   const { receta: recetaContext, setReceta: setRecetaContext } =
@@ -105,20 +108,64 @@ function VistaReceta() {
     });
 
   const handleCrearReceta = async () => {
-    const receta = await createNewReceta(recetaContext);
+    try {
+      const receta = await createNewReceta(recetaContext);
 
-    for (let i = 0; i < recetaContext.ingredientes.length; i++) {
-      await createNewIngrediente({
-        nombre: recetaContext.ingredientes[i],
-        recetasId: receta.id,
-      });
-    }
+      for (let i = 0; i < recetaContext.ingredientes.length; i++) {
+        await createNewIngrediente({
+          nombre: recetaContext.ingredientes[i],
+          recetasId: receta.id,
+        });
+      }
 
-    for (let i = 0; i < recetaContext.pasos.length; i++) {
-      await createNewPaso({
-        nombre: recetaContext.pasos[i],
-        recetaId: receta.id,
-      });
+      for (let i = 0; i < recetaContext.pasos.length; i++) {
+        await createNewPaso({
+          nombre: recetaContext.pasos[i],
+          recetaId: receta.id,
+        });
+      }
+      toast.custom((t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } toast max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        >
+          <div className='flex-1 w-0 p-4'>
+            <div className='flex items-start'>
+              <div className='flex-shrink-0 pt-0.5'>
+                <img
+                  className='h-10 w-10 rounded-full'
+                  src={
+                    recetaContext.imagen && recetaContext.imagen[0]
+                      ? URL.createObjectURL(recetaContext.imagen[0])
+                      : ""
+                  }
+                  alt={recetaContext.nombre}
+                />
+              </div>
+              <div className='ml-3 flex-1'>
+                <p className='text-sm font-medium text-gray-900'>
+                  {recetaContext.nombre}
+                </p>
+                <p className='mt-1 text-sm text-gray-500'>
+                  Tu receta ha sido creada con éxito!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='flex border-l border-gray-200'>
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className='w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-[#246C2C] hover:text-[#347c3a] focus:outline-none focus:ring-2 focus:ring-[#347c3a]'
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      ));
+    } catch (error) {
+      console.log(error);
+      toast.error("Error al crear la receta");
     }
 
     console.log(receta);
@@ -194,7 +241,9 @@ function VistaReceta() {
                     handleCrearReceta();
                   }}
                 >
-                  <Button text={"Crear Receta"}></Button>
+                  <Link to='/home'>
+                    <Button text={"Crear Receta"}></Button>
+                  </Link>
                 </span>
               </div>
             </div>
