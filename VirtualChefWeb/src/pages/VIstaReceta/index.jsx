@@ -105,10 +105,6 @@ function VistaReceta() {
     });
 
   const handleCrearReceta = async () => {
-    setRecetaContext({
-      ...recetaContext,
-      creador: userId,
-    });
     const receta = await createNewReceta(recetaContext);
 
     for (let i = 0; i < recetaContext.ingredientes.length; i++) {
@@ -193,7 +189,11 @@ function VistaReceta() {
             </p>
             <div className='w-full h-[20vh] bg-white border border-black fixed bottom-0 rounded-t-3xl flex items-center justify-center'>
               <div className='w-full px-10'>
-                <span onClick={handleCrearReceta}>
+                <span
+                  onClick={() => {
+                    handleCrearReceta();
+                  }}
+                >
                   <Button text={"Crear Receta"}></Button>
                 </span>
               </div>

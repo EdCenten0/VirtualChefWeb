@@ -31,6 +31,7 @@ const CrearReceta1 = () => {
   } = useForm();
 
   const { receta, setReceta } = useContext(CrearRecetaContext);
+  const userId = JSON.parse(localStorage.getItem("user")).id;
 
   const pickHorarioId = (horario) => {
     switch (horario) {
@@ -49,6 +50,7 @@ const CrearReceta1 = () => {
     setReceta({
       nombre: data.nombre,
       descripcion: data.Descripcion,
+      creador: userId,
       imagen: data.imagen,
       tiempoPreparacion: data.tiempo,
       horarioId: pickHorarioId(data.horarioId),
