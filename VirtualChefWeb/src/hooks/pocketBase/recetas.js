@@ -69,12 +69,21 @@ function useRecetas() {
     return receta;
   };
 
+  const buscarRecetasUsuario = async (creadorId) => {
+    const receta = await pb
+      .collection("recetas")
+      .getFullList({ filter: `creador = "${creadorId}"` });
+
+    return receta;
+  };
+
   return {
     createNewReceta,
     getRecetas,
     searchReceta,
     getRecetasMenu,
     buscarRecetas,
+    buscarRecetasUsuario,
   };
 }
 
