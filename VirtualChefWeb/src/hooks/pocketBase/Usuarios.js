@@ -87,4 +87,20 @@ async function buscarInfoUsuario(id) {
   }
 }
 
-export { ALL_USERS, loginUsuario, existeUsuario, buscarInfoUsuario };
+async function editarUsuario(id, data) {
+  try {
+    await pb.collection("users").update(`${id}`, data);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export {
+  ALL_USERS,
+  loginUsuario,
+  existeUsuario,
+  buscarInfoUsuario,
+  editarUsuario,
+};
