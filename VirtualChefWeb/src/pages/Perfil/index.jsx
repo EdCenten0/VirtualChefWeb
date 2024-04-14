@@ -158,7 +158,7 @@ const Perfil = () => {
               <Header></Header>
             </div>
             <div className='flex justify-evenly max-w-[95vw] mt-10 gap-20 mx-10'>
-              <aside className=' bg-[#8ED88B]  flex flex-col justify-center items-center gap-4 px-4 py-10 rounded-2xl'>
+              <aside className=' bg-[#8ED88B] h-fit flex flex-col justify-center items-center gap-4 px-4 py-10 rounded-2xl'>
                 <img src={profile} className='w-16 h-36' alt='' />
                 <div className='flex flex-col justify-center items-center'>
                   <h4 className='text-xl font-semibold text-center'>
