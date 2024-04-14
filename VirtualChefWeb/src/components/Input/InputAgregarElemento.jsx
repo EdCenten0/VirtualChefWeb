@@ -11,10 +11,12 @@ const InputAgregarElemento = ({ name, placeholder, nombreDelArreglo }) => {
   };
 
   const saveIngrediente = () => {
-    setReceta({
-      ...receta,
-      [nombreDelArreglo]: [...receta[nombreDelArreglo], inputValue],
-    });
+    if (inputValue != "") {
+      setReceta({
+        ...receta,
+        [nombreDelArreglo]: [...receta[nombreDelArreglo], inputValue],
+      });
+    }
 
     setInputValue("");
     console.log(receta);
