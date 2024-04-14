@@ -193,7 +193,7 @@ function VistaReceta() {
               <h3 className='text-center font-bold text-3xl p-3'>
                 {recetaContext.nombre}
               </h3>
-              <DotMenu />
+              <div className='w-3 h-3'></div>
             </div>
             <div className='text-center text-lg p-3'>
               <p>{recetaContext.descripcion}</p>
@@ -268,7 +268,11 @@ function VistaReceta() {
               <div className='flex justify-between px-8 items-center'>
                 <Corazon />
                 <h3 className='text-center font-bold text-3xl p-3'>{nombre}</h3>
-                <DotMenu />
+                {/*
+                  Para mi yo de unos dias, codificar esto por favor
+
+                <DotMenu /> */}
+                <div className='w-3 h-3'></div>
               </div>
               <div className='text-center text-lg p-3'>
                 <p>{descripcion}</p>
