@@ -18,6 +18,7 @@ import CarruselComidas from "../../components/Carrusel/CarruselComidas";
 import { useRecetas } from "../../hooks/pocketBase/recetas";
 import { UserContext } from "../../contexts/UserContext";
 import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
+import Loader from "../../components/Icons/Loader";
 
 function Menu_Principal() {
   // Contexto de react, para hacer la verificación de si el usuario está logeado
@@ -30,26 +31,31 @@ function Menu_Principal() {
   const [Desayunos, setDesayunos] = useState([]);
   const [Almuerzos, setAlmuerzos] = useState([]);
   const [Cenas, setCenas] = useState([]);
+  const [userIsValid, setUserIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Constante asycrona para obtener las recetas
     const setComidas = async () => {
       try {
+        // Verifica si el usuario esta logeado
+        setUserIsValid(await existeUsuario("", "", user.id));
         // Fetch data from API
         setDesayunos(await getRecetasMenu("desayuno"));
         setAlmuerzos(await getRecetasMenu("Almuerzo"));
         setCenas(await getRecetasMenu("Cena"));
+
+        //Cuando cargue todo, se mostrara el contenido
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     setComidas();
-  }, [getRecetasMenu]);
+  }, [getRecetasMenu, user.id]);
 
-  return (
-    // Esto verifica si el usuario esta logeado, comparandolo con el localStorage o el contexto de react con el id del usuario
-    // Si el usuario esta logeado, muestra el menu principal
-    user.id != "" && existeUsuario("", "", user.id) != {} (
+  if (!isLoading) {
+    return userIsValid ? (
       <>
         <main className="w-screen pt-10 flex items-center flex-col ">
           <div className="fixed bottom-0 left-0 p-5 z-20">
@@ -86,8 +92,14 @@ function Menu_Principal() {
     ) : (
       // Si no lo esta, muestra el componente "NoLogged"
       <NoLogged></NoLogged>
-    )
-  );
+    );
+  } else {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center">
+        <Loader></Loader>
+      </div>
+    );
+  }
 }
 
 export default Menu_Principal;

@@ -19,8 +19,9 @@ export const UserProvider = ({ children }) => {
   }, [user]);
 
   const updateUser = (newUserData) => {
+    console.log(newUserData)
     setUser({
-      id: newUserData.id,
+      id: newUserData,
     });
   };
 

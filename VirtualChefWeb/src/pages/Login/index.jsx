@@ -13,7 +13,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 
 // Hooks
-import { loginUsuario, existeUsuario } from "../../hooks/pocketBase/Usuarios";
+import { loginUsuario } from "../../hooks/pocketBase/Usuarios";
 
 const Login = () => {
   const {
@@ -21,8 +21,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  localStorage.clear();  
   
   // Contexto de react, para actualizar el estado y almacenar la información del usuario
   // Ya se ha en el localStorage o en el contexto de react
@@ -35,11 +33,11 @@ const Login = () => {
       data.correo_electronico,
       data.contraseña
     );
+    console.log(usuario.record.id)
 
     // Si el usuario existe, se llama a la función "existeUsuario" para actualizar el contexto con el id del usuario
     if (usuario) {
-      const usuarioLog = await existeUsuario(usuario.record.email);
-      updateUser(usuarioLog[0]);
+      updateUser(usuario.record.id);
       alert("Inicio de sesión exitoso");
       location.href = "/home";
     }

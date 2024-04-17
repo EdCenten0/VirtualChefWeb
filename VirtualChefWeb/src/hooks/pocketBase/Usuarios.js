@@ -64,7 +64,7 @@ async function existeUsuario(email, username, id) {
         });
 
         // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
-        return user;
+        return user.length != 0 ? true : false
 
     } catch (error) {
         console.log(error);
