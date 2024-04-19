@@ -12,23 +12,18 @@ const Registrar = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     if (data.contraseña !== data.confirmar_contraseña) {
       alert("Las contraseñas no coinciden");
       return;
     }
 
     // Llama a la función createUser del archivo Usuarios.js para crear un usuario
-    createUser(data);
-
-    // Si el usuario desea volver al inicio de sesión, se redirige a la página de inicio
-    setTimeout(() => {
+    if (await createUser(data)) {
       if (confirm("Desea volver al inicio de sesión?")) {
         location.href = "/";
-      } else {
-        window.location.reload();
       }
-    }, 2000);
+    }
   });
 
   return (

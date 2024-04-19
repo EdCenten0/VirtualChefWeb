@@ -30,19 +30,19 @@ export async function createUser(data) {
         // Comprueba si hay un usuario con el mismo correo o nombre de usuario
         const user = await existeUsuario(datos.email, datos.username)
 
-        // la varible "user" es un arreglo con los usuarios que coinciden con el correo o nombre de usuario
-        if (user.length === 1) {
-            alert("Usuario ya existe, intente con otro correo o nombre de usuario");
+        if (user) {
+            alert("Usuario ya existe, intente con otro correo o nombre de usuarios");
+            return false;
         } else {
             // Crea el usuario, porque no existe
             await pb.collection('users').create(datos);
-            alert("Usuario creado con exito");
+            alert("Usuario creado con éxito")
+            return true;
         }
 
-        return user;
-
     } catch (error) {
-        alert(error);
+        console.log(error);
+        return false;
     }
 }
 
