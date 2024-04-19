@@ -31,22 +31,41 @@ const CrearReceta1 = () => {
   } = useForm();
 
   const { receta, setReceta } = useContext(CrearRecetaContext);
+  const userId = JSON.parse(localStorage.getItem("user")).id;
+
+  const pickHorarioId = (horario) => {
+    switch (horario) {
+      case "Desayuno":
+        return "ggqdjlhxly7zono";
+      case "Almuerzo":
+        return "1dt3qs0viyl1w4l";
+      case "Cena":
+        return "i8d4cn28bw4o3vj";
+      default:
+        return "ggqdjlhxly7zono";
+    }
+  };
 
   const onSubmit = handleSubmit((data) => {
-    console.log("Guardando");
-    setReceta("adios");
+    setReceta({
+      nombre: data.nombre,
+      descripcion: data.Descripcion,
+      creador: userId,
+      imagen: data.imagen,
+      tiempoPreparacion: data.tiempo,
+      horarioId: pickHorarioId(data.horarioId),
+      ingredientes: [],
+      pasos: [],
+    });
   });
 
   const renderLink = () => {
-    console.log("errors");
-    console.log(errors);
     if (isEmpty(errors) && Object.keys(dirtyFields).length >= 3) {
       return <Link to={"/CrearReceta2"}>Siguiente</Link>;
     } else {
       return <p className=''>Siguiente</p>;
     }
   };
-  console.log(dirtyFields);
 
   return (
     <>
@@ -62,7 +81,7 @@ const CrearReceta1 = () => {
                 errors={errors}
                 register={register}
                 isRequired={true}
-                name={"image"}
+                name={"imagen"}
                 trigger={trigger}
               />
               <ControladorPasos paso={1} />
@@ -130,13 +149,18 @@ const CrearReceta1 = () => {
 };
 
 const CrearReceta2 = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
   const { receta, setReceta } = React.useContext(CrearRecetaContext);
+
+  const ingredientesIsEmpty = receta.ingredientes?.length === 0;
+
+  const renderLink = () => {
+    if (!ingredientesIsEmpty) {
+      return <Link to={"/CrearReceta3"}>Siguiente</Link>;
+    } else {
+      return <p className=''>Siguiente</p>;
+    }
+  };
+
   console.log(receta);
 
   return (
@@ -145,30 +169,32 @@ const CrearReceta2 = () => {
         <div className='mx-4 my-2'>
           <HeaderText text={"Agrega una receta"} />
           <div className='grid grid-cols-2 gap-10'>
-            <div className='flex justify-center flex-col gap-8'>
+            <div className='flex justify-start flex-col gap-8'>
               <InputAgregarElemento
-                errors={errors}
-                register={register}
                 name={"Ingrediente"}
                 placeholder={"Chiltoma con tomate"}
-                addIcon={true}
+                nombreDelArreglo={"ingredientes"}
               />
               <ControladorPasos paso={2} />
 
-              <NavLink to={"/CrearReceta3"}>
-                <Button text={"Siguiente"} />
-              </NavLink>
+              <Button text={""}>
+                <span>{renderLink()}</span>
+              </Button>
             </div>
 
-            <div>
+            <div className=''>
               <HeaderText text={"Ingredientes"} />
-              <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
+              <p>Agrega algunos ingredientes para tu receta!</p>
+              <div className='w-full min-h-10 bg-slate-400 p-2 rounded-lg my-5'>
+                {receta.ingredientes?.map((ingrediente, index) => {
+                  return (
+                    <TarjetasAgregados
+                      key={index}
+                      elemento={ingrediente}
+                      nombreDelArray={"ingredientes"}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -179,38 +205,48 @@ const CrearReceta2 = () => {
 };
 
 const CrearReceta3 = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { receta, setReceta } = React.useContext(CrearRecetaContext);
+
+  const pasosIsEmpty = receta.pasos?.length === 0;
+
+  const renderLink = () => {
+    if (!pasosIsEmpty) {
+      return <Link to={"/receta"}>Siguiente</Link>;
+    } else {
+      return <p className=''>Siguiente</p>;
+    }
+  };
   return (
     <>
       <main className='m-10'>
         <div className='mx-4 my-2'>
           <HeaderText text={"Agrega una receta"} />
           <div className='grid grid-cols-2 gap-10'>
-            <div className='flex justify-center flex-col gap-8'>
-              <Input
-                register={register}
+            <div className='flex justify-start flex-col gap-8'>
+              <InputAgregarElemento
                 name={"Pasos"}
-                placeholder={"Hornear 10 minutos"}
-                addIcon={true}
-                errors={errors}
+                placeholder={"Hornear por 10 minutos"}
+                nombreDelArreglo={"pasos"}
               />
               <ControladorPasos paso={3} />
-              <Button text={"Siguiente"} />
+              <Button text={""}>
+                <span>{renderLink()}</span>
+              </Button>
             </div>
 
-            <div>
+            <div className=''>
               <HeaderText text={"Pasos"} />
-              <div className='w-full bg-slate-400 p-2 rounded-lg my-5'>
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
-                <TarjetasAgregados />
+              <p>Agrega algunos pasos para tu receta!</p>
+              <div className='w-full min-h-10 bg-slate-400 p-2 rounded-lg my-5'>
+                {receta.pasos?.map((paso, index) => {
+                  return (
+                    <TarjetasAgregados
+                      key={index}
+                      elemento={paso}
+                      nombreDelArray={"pasos"}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

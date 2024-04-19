@@ -46,22 +46,28 @@ export async function createUser(data) {
     }
 }
 
+
 async function loginUsuario(email, password) {
-    try {
-        const authData = await pb.collection('users').authWithPassword(`${email}`, `${password}`);
-        return authData;
-    } catch (error) {
-        console.log(error);
-        alert("Usuario no encontrado, intente de nuevo");
-    }
+  try {
+    const authData = await pb
+      .collection("users")
+      .authWithPassword(`${email}`, `${password}`);
+    return authData;
+  } catch (error) {
+    console.log(error);
+    alert("Usuario no encontrado, intente de nuevo");
+  }
 }
 
 async function existeUsuario(email, username, id) {
-    try {
-        // Busca si hay un usuario con el mismo correo o nombre de usuario
-        const user = await pb.collection("users").getFullList({}, {
-            filter: `email = "${email}" || username = "${username}" || id = "${id}"`,
-        });
+  try {
+    // Busca si hay un usuario con el mismo correo o nombre de usuario
+    const user = await pb.collection("users").getFullList(
+      {},
+      {
+        filter: `email = "${email}" || username = "${username}" || id = "${id}"`,
+      }
+    );
 
         // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
         return user.length != 0 ? true : false
@@ -71,6 +77,31 @@ async function existeUsuario(email, username, id) {
     }
 }
 
+async function buscarInfoUsuario(id) {
+  try {
+    const user = await pb
+      .collection("users")
+      .getFullList({ filter: `id = "${id}"` });
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+async function editarUsuario(id, data) {
+  try {
+    await pb.collection("users").update(`${id}`, data);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
-export { ALL_USERS, loginUsuario, existeUsuario };
+export {
+  ALL_USERS,
+  loginUsuario,
+  existeUsuario,
+  buscarInfoUsuario,
+  editarUsuario,
+};

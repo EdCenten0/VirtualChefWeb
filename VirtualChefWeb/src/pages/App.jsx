@@ -16,7 +16,7 @@ const Buscar = lazy(() => import("./Buscar/index"));
 // Componentes
 import Loader from "../components/Icons/Loader";
 
-//Contextos 
+//Contextos
 import { UserProvider } from "../contexts/UserContext";
 import { CrearRecetaProvider } from "../contexts/CrearRecetaContext";
 
@@ -46,7 +46,7 @@ function App() {
         <CrearRecetaProvider>
           <Suspense
             fallback={
-              <div className="w-screen h-screen flex justify-center items-center">
+              <div className='w-screen h-screen flex justify-center items-center'>
                 <Loader></Loader>
               </div>
             }

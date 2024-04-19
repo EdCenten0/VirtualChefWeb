@@ -29,8 +29,7 @@ function usePasos() {
       const pasos = await pb
         .collection("pasos")
         .getFullList({ filter: `recetaId = "${idReceta}"` });
-      console.log("Console log desde usePasos");
-      console.log(pasos);
+
       return pasos;
     } catch (error) {
       console.log(error);
@@ -46,10 +45,10 @@ function usePasos() {
 
   const createNewPaso = async (data) => {
     try {
-      const paso = await pb.collection("pasos").create(data);
-      adjuntarPaso(paso);
+      pb.collection("pasos").create(data);
+      console.log("Paso creado con exito");
     } catch (error) {
-      setError(true);
+      console.log(error);
     }
   };
 

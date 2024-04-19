@@ -1,33 +1,11 @@
-import { useState, useEffect } from "react";
 import { pb } from "./pocketBase";
 import { getHorario } from "./Horario";
+import axios from "axios";
 
 // globally disable auto cancellation
 pb.autoCancellation(false);
 
 function useRecetas() {
-  const [recetas, setRecetas] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const fetchRecetas = async () => {
-      try {
-        const recetas = await getRecetas();
-        setRecetas(recetas);
-      } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRecetas();
-  }, []);
-
-  async function adjuntarReceta(receta) {
-    setRecetas([...recetas, receta]);
-  }
-
   async function getRecetas() {
     const recetas = await pb
       .collection("recetas")
@@ -43,12 +21,36 @@ function useRecetas() {
   }
 
   const createNewReceta = async (data) => {
-    try {
-      const receta = await pb.collection("recetas").create(data);
-      adjuntarReceta(receta);
-    } catch (error) {
-      setError(true);
-    }
+    console.log(data);
+    const formData = new FormData();
+    const formDataImage = new FormData();
+
+    formDataImage.append("imagen", data.imagen[0]);
+
+    formData.append("nombre", data.nombre);
+    formData.append("descripcion", data.descripcion);
+    formData.append("tiempoPreparacion", data.tiempoPreparacion);
+    formData.append("horarioId", data.horarioId);
+    formData.append("creador", data.creador);
+
+    console.log(formData);
+
+    const url = "http://127.0.0.1:8090/api/collections/recetas/records";
+    const respond = await axios
+      .post(url, {
+        nombre: data.nombre,
+        descripcion: data.descripcion,
+        tiempoPreparacion: data.tiempoPreparacion,
+        horarioId: data.horarioId,
+        creador: data.creador,
+      })
+      .then((response) => response.data);
+
+    console.log("Respond al guardar", respond);
+
+    await pb.collection("recetas").update(await respond.id, formDataImage);
+
+    return respond;
   };
 
   const getRecetasMenu = async (horario) => {
@@ -57,18 +59,32 @@ function useRecetas() {
       .collection("recetas")
       .getFullList({ filter: `horarioId = "${tiempo[0].id}"` });
     return recetasMenu;
-  }
+  };
 
   const buscarRecetas = async (nombre) => {
     const receta = await pb
-      .collection('recetas')
-      .getFullList({filter: `nombre ~ "${nombre}"`});
-      
-      
+      .collection("recetas")
+      .getFullList({ filter: `nombre ~ "${nombre}"` });
+
     return receta;
   };
 
-  return { recetas, loading, error, createNewReceta, getRecetas, searchReceta, getRecetasMenu, buscarRecetas };
+  const buscarRecetasUsuario = async (creadorId) => {
+    const receta = await pb
+      .collection("recetas")
+      .getFullList({ filter: `creador = "${creadorId}"` });
+
+    return receta;
+  };
+
+  return {
+    createNewReceta,
+    getRecetas,
+    searchReceta,
+    getRecetasMenu,
+    buscarRecetas,
+    buscarRecetasUsuario,
+  };
 }
 
 export { useRecetas };

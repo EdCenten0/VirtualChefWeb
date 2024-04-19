@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { CrearRecetaContext } from "../../contexts/CrearRecetaContext";
 import cross from "./../../assets/cross.svg";
 
-const InputAgregarElemento = ({
-  name,
-  placeholder,
-  register = () => {},
-  isRequired = false,
-  errors,
-  type = "text",
-  minLength = 5,
-}) => {
-  const replaceName = name.replace(/ /g, "_").toLowerCase();
+const InputAgregarElemento = ({ name, placeholder, nombreDelArreglo }) => {
+  const { receta, setReceta } = useContext(CrearRecetaContext);
+  const [inputValue, setInputValue] = useState("");
+
+  const takeTextFromInput = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const saveIngrediente = () => {
+    if (inputValue != "") {
+      setReceta({
+        ...receta,
+        [nombreDelArreglo]: [...receta[nombreDelArreglo], inputValue],
+      });
+    }
+
+    setInputValue("");
+    console.log(receta);
+  };
+
   return (
     <>
       <div className='relative my-[1rem] flex gap-3 items-center'>
@@ -21,25 +32,18 @@ const InputAgregarElemento = ({
             {name}
           </p>
           <input
-            {...register(replaceName, {
-              required: isRequired,
-              minLength: minLength,
-            })}
+            onChange={takeTextFromInput}
             placeholder={placeholder}
             className='m-0 outline-black border-black rounded-[5px] border font-light w-full px-[.4rem] py-[.6rem] placeholder:text-gray-400 placeholder:font-thin'
-            type={`${type}`}
+            value={inputValue}
           />
-          {errors[replaceName] && (
-            <span className='text-red-600 text-xl'>
-              Este campo es requerido
-            </span>
-          )}
         </div>
         <div>
           <button
             className='flex items-center justify-center border border-black rounded-lg w-full'
             onClick={(e) => {
               e.preventDefault();
+              saveIngrediente();
             }}
           >
             <img src={cross} alt='plus' />

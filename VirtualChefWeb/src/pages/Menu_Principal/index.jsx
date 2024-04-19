@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 // Imagenes
 import IconCreate from "../../assets/Create-pencil.svg";
@@ -57,11 +58,12 @@ function Menu_Principal() {
   if (!isLoading) {
     return userIsValid ? (
       <>
-        <main className="w-screen pt-10 flex items-center flex-col ">
-          <div className="fixed bottom-0 left-0 p-5 z-20">
+        <Toaster />
+        <main className='w-screen pt-10 flex items-center flex-col '>
+          <div className='fixed bottom-0 left-0 p-5 z-20'>
             <Pop_button Icon={IconCreate} text={"Crear"}></Pop_button>
           </div>
-          <div className=" w-screen max-w-[1200px] py-5">
+          <div className=' w-screen max-w-[1200px] py-5'>
             <Header></Header>
             <InputIcon
               icon={SearchIcon}
