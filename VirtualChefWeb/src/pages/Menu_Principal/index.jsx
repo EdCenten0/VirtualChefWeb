@@ -18,7 +18,7 @@ import CarruselComidas from "../../components/Carrusel/CarruselComidas";
 // Contextos
 import { useRecetas } from "../../hooks/pocketBase/recetas";
 import { UserContext } from "../../contexts/UserContext";
-import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
+import { registroUsuario } from "../../hooks/pocketBase/Usuarios";
 import Loader from "../../components/Icons/Loader";
 
 function Menu_Principal() {
@@ -40,7 +40,7 @@ function Menu_Principal() {
     const setComidas = async () => {
       try {
         // Verifica si el usuario esta logeado
-        setUserIsValid(await existeUsuario("", "", user.id));
+        setUserIsValid(await registroUsuario(user.id));
         // Fetch data from API
         setDesayunos(await getRecetasMenu("desayuno"));
         setAlmuerzos(await getRecetasMenu("Almuerzo"));
@@ -53,17 +53,17 @@ function Menu_Principal() {
       }
     };
     setComidas();
-  }, [getRecetasMenu, user.id]);
+  }, [user.id]);
 
   if (!isLoading) {
     return userIsValid ? (
       <>
         <Toaster />
-        <main className='w-screen pt-10 flex items-center flex-col '>
-          <div className='fixed bottom-0 left-0 p-5 z-20'>
+        <main className="w-screen pt-10 flex items-center flex-col ">
+          <div className="fixed bottom-0 left-0 p-5 z-20">
             <Pop_button Icon={IconCreate} text={"Crear"}></Pop_button>
           </div>
-          <div className=' w-screen max-w-[1200px] py-5'>
+          <div className=" w-screen max-w-[1200px] py-5">
             <Header></Header>
             <InputIcon
               icon={SearchIcon}

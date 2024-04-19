@@ -19,7 +19,7 @@ import CardComidas from "../../components/Card/CardComidas";
 // Contextos
 import { useRecetas } from "../../hooks/pocketBase/recetas";
 import { UserContext } from "../../contexts/UserContext";
-import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
+import { registroUsuario } from "../../hooks/pocketBase/Usuarios";
 import Loader from "../../components/Icons/Loader";
 
 function Buscar() {
@@ -41,7 +41,7 @@ function Buscar() {
     const setComidas = async () => {
       try {
         // Verifica si el usuario esta logeado
-        setUserIsValid(await existeUsuario("", "", user.id));
+        setUserIsValid(await registroUsuario(user.id));
 
         setRecetas(await buscarRecetas(consulta));
 

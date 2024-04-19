@@ -13,7 +13,7 @@ import { getFavoritos } from "../../hooks/pocketBase/Favoritos";
 
 // Contextos
 import { UserContext } from "../../contexts/UserContext";
-import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
+import { registroUsuario } from "../../hooks/pocketBase/Usuarios";
 import Loader from "../../components/Icons/Loader";
 
 function handleClick() {
@@ -32,7 +32,7 @@ const Favoritos = () => {
   useEffect(() => {
     const Favoritos = async () => {
       try {
-        setUserIsValid(await existeUsuario("", "", user.id));
+        setUserIsValid(await registroUsuario(user.id));
         setFavoritos(await getFavoritos(user.id));
 
         //Cuando cargue todo, se mostrara el contenido

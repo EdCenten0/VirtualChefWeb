@@ -59,7 +59,11 @@ async function loginUsuario(email, password) {
     return authData;
   } catch (error) {
     console.log(error);
-    toast.error("Usuario no encontrado, intente de nuevo");
+    toast.error("Usuario no encontrado, intente de nuevo", {
+      duration: 5000,
+      position: "bottom-right",
+      className: "bg-red-500 p-5 text-white font-bold",
+    });
   }
 }
 
@@ -102,10 +106,30 @@ async function editarUsuario(id, data) {
   }
 }
 
+
+async function registroUsuario(id) {
+  try {
+    // Busca si hay un usuario con el mismo correo o nombre de usuario
+    const user = await pb.collection("users").getFullList(
+      {},
+      {
+        filter: `id = "${id}"`,
+      }
+    );
+
+        // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
+        return user
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
   ALL_USERS,
   loginUsuario,
   existeUsuario,
   buscarInfoUsuario,
   editarUsuario,
+  registroUsuario
 };

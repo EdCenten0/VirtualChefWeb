@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { toast } from "react-hot-toast";
-import { existeUsuario } from "../../hooks/pocketBase/Usuarios";
+import { registroUsuario } from "../../hooks/pocketBase/Usuarios";
 import { CrearRecetaContext } from "../../contexts/CrearRecetaContext";
 import { useRecetas } from "../../hooks/pocketBase/recetas";
 import { useIngredientes } from "../../hooks/pocketBase/ingredientes";
@@ -31,7 +31,7 @@ function VistaReceta() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const respondUser = await existeUsuario("", "", userId);
+      const respondUser = await registroUsuario(userId);
       setUser(respondUser[0]);
     };
 
