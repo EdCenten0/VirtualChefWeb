@@ -1,4 +1,5 @@
 import PocketBase from "pocketbase";
+import toast from "react-hot-toast";
 
 const pb = new PocketBase("http://127.0.0.1:8090");
 
@@ -31,12 +32,15 @@ export async function createUser(data) {
         const user = await existeUsuario(datos.email, datos.username)
 
         if (user) {
-            alert("Usuario ya existe, intente con otro correo o nombre de usuarios");
+            toast.error("Este usuario ya existe, intente con otro correo o nombre de usuario", {
+              duration: 5000,
+              position: "bottom-right",
+              className: "bg-red-500 p-5 text-white font-bold",
+            });
             return false;
         } else {
             // Crea el usuario, porque no existe
             await pb.collection('users').create(datos);
-            alert("Usuario creado con éxito")
             return true;
         }
 
@@ -55,7 +59,7 @@ async function loginUsuario(email, password) {
     return authData;
   } catch (error) {
     console.log(error);
-    alert("Usuario no encontrado, intente de nuevo");
+    toast.error("Usuario no encontrado, intente de nuevo");
   }
 }
 

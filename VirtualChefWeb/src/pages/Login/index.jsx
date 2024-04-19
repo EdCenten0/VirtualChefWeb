@@ -14,6 +14,7 @@ import { useContext } from "react";
 
 // Hooks
 import { loginUsuario } from "../../hooks/pocketBase/Usuarios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -21,7 +22,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   // Contexto de react, para actualizar el estado y almacenar la información del usuario
   // Ya se ha en el localStorage o en el contexto de react
   const { updateUser } = useContext(UserContext);
@@ -33,47 +34,55 @@ const Login = () => {
       data.correo_electronico,
       data.contraseña
     );
-    console.log(usuario.record.id)
+    console.log(usuario.record.id);
 
     // Si el usuario existe, se llama a la función "existeUsuario" para actualizar el contexto con el id del usuario
     if (usuario) {
       updateUser(usuario.record.id);
-      alert("Inicio de sesión exitoso");
+      toast.success('Inicio de sesión exitoso'  , {
+        duration: 5000,
+        position: 'bottom-right',
+        className: 'bg-[#246C2C] p-5 text-white font-bold',
+      });
       location.href = "/home";
     }
   });
 
   return (
-    <div className="w-screen h-screen gap-3 flex flex-col items-center justify-center">
-      <img src={Logo} className="size-[250px]" alt="Logo" />
-      <form className="w-[500px]" onSubmit={onSubmit}>
-        <div className="mb-5">
-          <InputCom
-            register={register}
-            isRequired={true}
-            errors={errors}
-            name={"Correo electronico"}
-            type={"text"}
-          />
-          <InputCom
-            register={register}
-            isRequired={true}
-            errors={errors}
-            name={"Contraseña"}
-            type={"password"}
-          />
-        </div>
-        <div className="text-center">
-          <ButtonCom text={"Iniciar sesión"} />
-          <NavLink
-            to="/registrar"
-            className="text-[#246C2C] text-[20px] mt-[5px] leading-10 underline"
-          >
-            Crear cuenta
-          </NavLink>
-        </div>
-      </form>
-    </div>
+    <>
+      <Toaster />
+
+      <div className="w-screen h-screen gap-3 flex flex-col items-center justify-center">
+        <img src={Logo} className="size-[250px]" alt="Logo" />
+        <form className="w-[500px]" onSubmit={onSubmit}>
+          <div className="mb-5">
+            <InputCom
+              register={register}
+              isRequired={true}
+              errors={errors}
+              name={"Correo electronico"}
+              type={"text"}
+            />
+            <InputCom
+              register={register}
+              isRequired={true}
+              errors={errors}
+              name={"Contraseña"}
+              type={"password"}
+            />
+          </div>
+          <div className="text-center">
+            <ButtonCom text={"Iniciar sesión"} />
+            <NavLink
+              to="/registrar"
+              className="text-[#246C2C] text-[20px] mt-[5px] leading-10 underline"
+            >
+              Crear cuenta
+            </NavLink>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

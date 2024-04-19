@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Corazon.css";
 import { eliminarFavorito, findFavoritos, guardarFavorito } from "../../hooks/pocketBase/Favoritos";
+import toast from "react-hot-toast";
 
 function Corazon({ id_receta }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -18,8 +19,18 @@ function Corazon({ id_receta }) {
   const handleClick = async () => {
     if (active) {
       await eliminarFavorito(user.id, id_receta);
+      toast.error("Receta eliminada de Favoritos", {
+        duration: 3000,
+        position: "bottom-right",
+        className: "bg-red-500 p-5 text-white font-bold",
+      });
     } else {
       await guardarFavorito(user.id, id_receta);
+      toast.success("Receta agregada a Favoritos", {
+        duration: 3000,
+        position: "bottom-right",
+        className: "bg-[#246C2C] p-5 text-white font-bold",
+      });
     }
     setActive(!active);
   };

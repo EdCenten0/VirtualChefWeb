@@ -4,6 +4,7 @@ import ButtonCom from "../../components/Button";
 import Logo from "../../assets/Logo.svg";
 import { useForm } from "react-hook-form";
 import { createUser } from "../../hooks/pocketBase/Usuarios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Registrar = () => {
   const {
@@ -14,20 +15,31 @@ const Registrar = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     if (data.contraseña !== data.confirmar_contraseña) {
-      alert("Las contraseñas no coinciden");
+      toast.error("Las contraseñas no coinciden", {
+        duration: 5000,
+        position: "bottom-right",
+        className: "bg-[#246C2C] p-5 text-white font-bold",
+      });
       return;
     }
 
     // Llama a la función createUser del archivo Usuarios.js para crear un usuario
     if (await createUser(data)) {
-      if (confirm("Desea volver al inicio de sesión?")) {
+      toast.success("Usuario creado exitosamente", {
+        duration: 3000,
+        position: "bottom-right",
+        className: "bg-[#246C2C] p-5 text-white font-bold",
+      });
+      setTimeout(() => {
         location.href = "/";
-      }
+      }, 2000);
     }
   });
 
   return (
     <>
+      <Toaster />
+
       <div className=" gap-5 h-screen flex flex-col items-center justify-center p-14">
         <img src={Logo} className="size-[250px]" />
         <form className="w-[500px]" onSubmit={onSubmit}>

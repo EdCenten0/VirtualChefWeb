@@ -46,7 +46,7 @@ const Favoritos = () => {
 
   if (!isLoading) {
     return userIsValid ? (
-      <main className="w-screen flex flex-col items-center relative ">
+      <main className="w-screen flex flex-col items-center relative min-h-screen">
         <img
           className="absolute left-0 p-4 cursor-pointer"
           src={IconLeft}
@@ -80,11 +80,11 @@ const Favoritos = () => {
 
           {favoritos.length == 0 ? (
             <div className="w-full h-[80vh] flex items-center justify-center text-[#B5B5B5]">
-              <h1 className="text-[20px]">No tienes recetas favoritas</h1>
+              <h1 className="text-[25px]">No tienes recetas favoritas</h1>
             </div>
           ) : null}
         </div>
-        <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white bottom-0"></div>
+        <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white mt-auto"></div>
       </main>
     ) : (
       <div className="w-screen h-screen flex items-center justify-center">
