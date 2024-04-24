@@ -266,7 +266,7 @@ function VistaReceta() {
             </section>
             <section className='bg-[#fff] h-[60vh] w-full rounded-t-[5rem]  flex flex-col gap-6'>
               <div className='flex justify-between px-8 items-center'>
-                <Corazon />
+                <Corazon id_receta={id} />
                 <h3 className='text-center font-bold text-3xl p-3'>{nombre}</h3>
                 {/*
                   Para mi yo de unos dias, codificar esto por favor
