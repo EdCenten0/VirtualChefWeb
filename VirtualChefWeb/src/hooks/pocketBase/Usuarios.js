@@ -1,7 +1,5 @@
-import PocketBase from "pocketbase";
+import { pb } from "./pocketBase";
 import toast from "react-hot-toast";
-
-const pb = new PocketBase("http://127.0.0.1:8090");
 
 const ALL_USERS = await pb.collection("users").getFullList({});
 
@@ -9,47 +7,50 @@ const ALL_USERS = await pb.collection("users").getFullList({});
 pb.autoCancellation(false);
 
 export async function createUser(data) {
-
-    // Buscar el ID del rol de "usuario"
-    const idRol = await pb.collection("roles").getFullList({}, {
-        filter: `nombre = "usuario"`,
-    });
-
-    try {
-        // Tabla de usuarios en pocketbase
-        const datos = {
-            username: data.nombre_de_usuario,
-            email: data.correo_electronico,
-            emailVisibility: true,
-            password: data.contraseña,
-            passwordConfirm: data.confirmar_contraseña,
-            nombre: data.nombre,
-            apellido: data.apellido,
-            rolID: idRol[0].id// ID del rol de usuario
-        }
-
-        // Comprueba si hay un usuario con el mismo correo o nombre de usuario
-        const user = await existeUsuario(datos.email, datos.username)
-
-        if (user) {
-            toast.error("Este usuario ya existe, intente con otro correo o nombre de usuario", {
-              duration: 5000,
-              position: "bottom-right",
-              className: "bg-red-500 p-5 text-white font-bold",
-            });
-            return false;
-        } else {
-            // Crea el usuario, porque no existe
-            await pb.collection('users').create(datos);
-            return true;
-        }
-
-    } catch (error) {
-        console.log(error);
-        return false;
+  // Buscar el ID del rol de "usuario"
+  const idRol = await pb.collection("roles").getFullList(
+    {},
+    {
+      filter: `nombre = "usuario"`,
     }
-}
+  );
 
+  try {
+    // Tabla de usuarios en pocketbase
+    const datos = {
+      username: data.nombre_de_usuario,
+      email: data.correo_electronico,
+      emailVisibility: true,
+      password: data.contraseña,
+      passwordConfirm: data.confirmar_contraseña,
+      nombre: data.nombre,
+      apellido: data.apellido,
+      rolID: idRol[0].id, // ID del rol de usuario
+    };
+
+    // Comprueba si hay un usuario con el mismo correo o nombre de usuario
+    const user = await existeUsuario(datos.email, datos.username);
+
+    if (user) {
+      toast.error(
+        "Este usuario ya existe, intente con otro correo o nombre de usuario",
+        {
+          duration: 5000,
+          position: "bottom-right",
+          className: "bg-red-500 p-5 text-white font-bold",
+        }
+      );
+      return false;
+    } else {
+      // Crea el usuario, porque no existe
+      await pb.collection("users").create(datos);
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
 async function loginUsuario(email, password) {
   try {
@@ -77,12 +78,11 @@ async function existeUsuario(email, username, id) {
       }
     );
 
-        // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
-        return user.length != 0 ? true : false
-
-    } catch (error) {
-        console.log(error);
-    }
+    // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
+    return user.length != 0 ? true : false;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function buscarInfoUsuario(id) {
@@ -106,7 +106,6 @@ async function editarUsuario(id, data) {
   }
 }
 
-
 async function registroUsuario(id) {
   try {
     // Busca si hay un usuario con el mismo correo o nombre de usuario
@@ -117,12 +116,11 @@ async function registroUsuario(id) {
       }
     );
 
-        // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
-        return user
-
-    } catch (error) {
-        console.log(error);
-    }
+    // Devuelve un arreglo con los usuarios que coinciden con el correo o nombre de usuario
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export {
@@ -131,5 +129,5 @@ export {
   existeUsuario,
   buscarInfoUsuario,
   editarUsuario,
-  registroUsuario
+  registroUsuario,
 };

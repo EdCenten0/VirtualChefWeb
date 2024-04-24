@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../contexts/UserContext";
 import { Toaster, toast } from "react-hot-toast";
-import { isEmpty } from "lodash";
-
+import { isEmpty, update } from "lodash";
 import {
   existeUsuario,
   buscarInfoUsuario,
@@ -19,9 +18,11 @@ import CardComidas from "../../components/Card/CardComidas";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import profile from "../../assets/profile.svg";
+import Pop_button from "../../components/Button/Pop_button";
+import logoutIcon from "../../assets/logout.svg";
 
 const Perfil = () => {
-  const { user } = useContext(UserContext);
+  const { user, updateUser } = useContext(UserContext);
   const [userInfo, setUserInfo] = useState([{ nombre: "" }]);
   const [recetas, setRecetas] = useState([]);
   const [editarIsActived, setEditarIsActived] = useState(false);
@@ -154,6 +155,18 @@ const Perfil = () => {
         <>
           <Toaster />
           <main className='pt-10 flex items-center flex-col mb-12'>
+            <div
+              className='fixed bottom-0 left-0 p-5 z-20'
+              onClick={() => {
+                updateUser("");
+              }}
+            >
+              <Pop_button
+                Icon={logoutIcon}
+                text={"Cerrar Sesión"}
+                path={"/"}
+              ></Pop_button>
+            </div>
             <div className=' w-screen max-w-[1200px] py-5'>
               <Header></Header>
             </div>
