@@ -58,6 +58,7 @@ function useRecetas() {
     const recetasMenu = await pb
       .collection("recetas")
       .getFullList({ filter: `horarioId = "${tiempo[0].id}"` });
+
     return recetasMenu;
   };
 

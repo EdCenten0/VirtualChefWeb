@@ -41,9 +41,10 @@ function Menu_Principal() {
     const setComidas = async () => {
       try {
         // Verifica si el usuario esta logeado
+        console.log("user id en principal", user.id);
         setUserIsValid(await registroUsuario(user.id));
         // Fetch data from API
-        setDesayunos(await getRecetasMenu("desayuno"));
+        setDesayunos(await getRecetasMenu("Desayuno"));
         setAlmuerzos(await getRecetasMenu("Almuerzo"));
         setCenas(await getRecetasMenu("Cena"));
 

@@ -36,7 +36,7 @@ const Login = () => {
       data.correo_electronico,
       data.contraseña
     );
-    console.log(usuario.record.id);
+    console.log(usuario);
     await pb.admins.authWithPassword("admin@gmail.com", "admin123456");
 
     // Si el usuario existe, se llama a la función "existeUsuario" para actualizar el contexto con el id del usuario
