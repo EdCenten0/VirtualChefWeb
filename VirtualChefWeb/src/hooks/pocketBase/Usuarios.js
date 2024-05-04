@@ -1,7 +1,8 @@
 import { pb } from "./pocketBase";
 import toast from "react-hot-toast";
 
-const ALL_USERS = await pb.collection("users").getFullList({});
+const ALL_USERS = async () => await pb.collection("users").getFullList({});
+ALL_USERS();
 
 // globally disable auto cancellation
 pb.autoCancellation(false);

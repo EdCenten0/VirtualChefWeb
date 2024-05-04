@@ -3,9 +3,10 @@ import { pb } from "./pocketBase";
 // globally disable auto cancellation
 pb.autoCancellation(false);
 
-const ALL_FAVORITOS = await pb
-  .collection("usuario_recetas_favoritas")
-  .getFullList({});
+const ALL_FAVORITOS = async () =>
+  await pb.collection("usuario_recetas_favoritas").getFullList({});
+
+ALL_FAVORITOS();
 
 async function findFavoritos(usuarioId, recetasId) {
   // Filtra todas las recetas favoritas de un usuario

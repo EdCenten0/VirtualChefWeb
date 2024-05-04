@@ -19,6 +19,7 @@ import CarruselComidas from "../../components/Carrusel/CarruselComidas";
 import { useRecetas } from "../../hooks/pocketBase/recetas";
 import { UserContext } from "../../contexts/UserContext";
 import { registroUsuario } from "../../hooks/pocketBase/Usuarios";
+
 import Loader from "../../components/Icons/Loader";
 
 function Menu_Principal() {
