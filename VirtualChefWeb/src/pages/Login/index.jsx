@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 // Componentes
 import ButtonCom from "../../components/Button";
@@ -47,8 +47,6 @@ const Login = () => {
         position: "bottom-right",
         className: "bg-[#246C2C] p-5 text-white font-bold",
       });
-
-      location.href = "/home";
     }
   });
 
@@ -76,7 +74,10 @@ const Login = () => {
             />
           </div>
           <div className='text-center'>
-            <ButtonCom text={"Iniciar sesión"} />
+            <Link to={"/home"}>
+              <ButtonCom text={"Iniciar sesión"} />
+            </Link>
+
             <NavLink
               to='/registrar'
               className='text-[#246C2C] text-[20px] mt-[5px] leading-10 underline'
