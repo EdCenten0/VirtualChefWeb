@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // Componentes
 import ButtonCom from "../../components/Button";
@@ -25,6 +25,8 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   // Contexto de react, para actualizar el estado y almacenar la información del usuario
   // Ya se ha en el localStorage o en el contexto de react
   const { updateUser } = useContext(UserContext);
@@ -47,6 +49,8 @@ const Login = () => {
         position: "bottom-right",
         className: "bg-[#246C2C] p-5 text-white font-bold",
       });
+
+      navigate("/home");
     }
   });
 
@@ -74,10 +78,7 @@ const Login = () => {
             />
           </div>
           <div className='text-center'>
-            <Link to={"/home"}>
-              <ButtonCom text={"Iniciar sesión"} />
-            </Link>
-
+            <ButtonCom text={"Iniciar sesión"} />
             <NavLink
               to='/registrar'
               className='text-[#246C2C] text-[20px] mt-[5px] leading-10 underline'
