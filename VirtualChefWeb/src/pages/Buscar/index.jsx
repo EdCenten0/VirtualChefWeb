@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState, lazy } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 // Imagenes
 import IconCreate from "../../assets/Create-pencil.svg";
 import SearchIcon from "../../assets/search.jpg";
@@ -35,6 +37,8 @@ function Buscar() {
   const [userIsValid, setUserIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   const consulta = window.location.hash.substring(1);
 
   useEffect(() => {
@@ -60,28 +64,26 @@ function Buscar() {
       userIsValid ? (
         // Si el usuario esta logeado, muestra el menu principal
         <>
-          <main className="w-screen pt-10 flex items-center flex-col ">
-            <div className="fixed bottom-0 left-0 p-5 z-20">
+          <main className='w-screen pt-10 flex items-center flex-col '>
+            <div className='fixed bottom-0 left-0 p-5 z-20'>
               <Pop_button Icon={IconCreate} text={"Crear"}></Pop_button>
             </div>
-            <div className=" w-screen max-w-[1200px] py-5">
+            <div className=' w-screen max-w-[1200px] py-5'>
               <Header></Header>
               <InputIcon
                 icon={SearchIcon}
                 placeholder={"Buscar recetas..."}
                 fun={() => {
-                  location.href = `/buscar#${
-                    document.querySelector("input").value
-                  }`;
+                  navigate(`/buscar#${document.querySelector("input").value}`);
                 }}
               ></InputIcon>
 
               {Recetas == "" ? (
-                <div className="w-full h-[500px] flex items-center justify-center text-[#B5B5B5]">
-                  <h1 className="text-[20px]">Receta no encontrada</h1>
+                <div className='w-full h-[500px] flex items-center justify-center text-[#B5B5B5]'>
+                  <h1 className='text-[20px]'>Receta no encontrada</h1>
                 </div>
               ) : (
-                <div className="grid grid-cols-3 gap-y-12 gap-x-8 py-8">
+                <div className='grid grid-cols-3 gap-y-12 gap-x-8 py-8'>
                   {Recetas.map((info) => {
                     return (
                       <CardComidas
@@ -105,7 +107,7 @@ function Buscar() {
     );
   } else {
     return (
-      <div className="w-screen h-screen flex items-center justify-center">
+      <div className='w-screen h-screen flex items-center justify-center'>
         <Loader></Loader>
       </div>
     );

@@ -3,6 +3,7 @@ import InputCom from "../../components/Input";
 import ButtonCom from "../../components/Button";
 import Logo from "../../assets/Logo.svg";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { createUser } from "../../hooks/pocketBase/Usuarios";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -12,6 +13,8 @@ const Registrar = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
     if (data.contraseña !== data.confirmar_contraseña) {
@@ -31,7 +34,7 @@ const Registrar = () => {
         className: "bg-[#246C2C] p-5 text-white font-bold",
       });
       setTimeout(() => {
-        location.href = "/";
+        navigate("/");
       }, 2000);
     }
   });
@@ -40,10 +43,10 @@ const Registrar = () => {
     <>
       <Toaster />
 
-      <div className=" gap-5 h-screen flex flex-col items-center justify-center p-14">
-        <img src={Logo} className="size-[250px]" />
-        <form className="w-[500px]" onSubmit={onSubmit}>
-          <div className="mb-5">
+      <div className=' gap-5 h-screen flex flex-col items-center justify-center p-14'>
+        <img src={Logo} className='size-[250px]' />
+        <form className='w-[500px]' onSubmit={onSubmit}>
+          <div className='mb-5'>
             <InputCom
               name={"Correo electronico"}
               errors={errors}

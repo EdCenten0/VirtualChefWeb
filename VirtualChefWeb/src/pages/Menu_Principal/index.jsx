@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 // Imagenes
 import IconCreate from "../../assets/Create-pencil.svg";
@@ -36,6 +37,8 @@ function Menu_Principal() {
   const [userIsValid, setUserIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Constante asycrona para obtener las recetas
     const setComidas = async () => {
@@ -71,9 +74,7 @@ function Menu_Principal() {
               icon={SearchIcon}
               placeholder={"Buscar recetas..."}
               fun={() => {
-                location.href = `/buscar#${
-                  document.querySelector("input").value
-                }`;
+                navigate(`/buscar#${document.querySelector("input").value}`);
               }}
             ></InputIcon>
 

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Componetes
 import CardFavoritos from "../../components/Card/CardFavoritos";
@@ -16,18 +17,14 @@ import { UserContext } from "../../contexts/UserContext";
 import { registroUsuario } from "../../hooks/pocketBase/Usuarios";
 import Loader from "../../components/Icons/Loader";
 
-function handleClick() {
-  if (confirm("¿Estás seguro de que deseas continuar?")) {
-    location.href = "/home";
-  }
-}
-
 const Favoritos = () => {
   const { user } = useContext(UserContext);
   const [userIsValid, setUserIsValid] = useState(false);
 
   const [favoritos, setFavoritos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const Favoritos = async () => {
@@ -44,20 +41,26 @@ const Favoritos = () => {
     Favoritos();
   }, [user.id]);
 
+  const handleClick = () => {
+    if (confirm("¿Estás seguro de que deseas continuar?")) {
+      navigate("/home");
+    }
+  };
+
   if (!isLoading) {
     return userIsValid ? (
-      <main className="w-screen flex flex-col items-center relative min-h-screen">
+      <main className='w-screen flex flex-col items-center relative min-h-screen'>
         <img
-          className="absolute left-0 p-4 cursor-pointer"
+          className='absolute left-0 p-4 cursor-pointer'
           src={IconLeft}
           onClick={handleClick}
         ></img>
-        <header className="p-[20px]">
-          <section className=" flex items-center justify-center gap-5 ">
-            <h1 className="text-[30px] font-light">Favoritos</h1>
+        <header className='p-[20px]'>
+          <section className=' flex items-center justify-center gap-5 '>
+            <h1 className='text-[30px] font-light'>Favoritos</h1>
           </section>
         </header>
-        <div className="w-[1000px]">
+        <div className='w-[1000px]'>
           {
             <div
               className={`grid grid-cols-3 gap-y-12 gap-x-8 ${
@@ -79,21 +82,21 @@ const Favoritos = () => {
           }
 
           {favoritos.length == 0 ? (
-            <div className="w-full h-[80vh] flex items-center justify-center text-[#B5B5B5]">
-              <h1 className="text-[25px]">No tienes recetas favoritas</h1>
+            <div className='w-full h-[80vh] flex items-center justify-center text-[#B5B5B5]'>
+              <h1 className='text-[25px]'>No tienes recetas favoritas</h1>
             </div>
           ) : null}
         </div>
-        <div className="w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white mt-auto"></div>
+        <div className='w-full p-6 bg-[#246C2C] flex items-center justify-evenly flex-col text-white mt-auto'></div>
       </main>
     ) : (
-      <div className="w-screen h-screen flex items-center justify-center">
+      <div className='w-screen h-screen flex items-center justify-center'>
         <NoLogged></NoLogged>
       </div>
     );
   } else {
     return (
-      <div className="w-screen h-screen flex items-center justify-center">
+      <div className='w-screen h-screen flex items-center justify-center'>
         <Loader></Loader>
       </div>
     );
